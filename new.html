@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Aria Odyssey</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		body {
+			font-family: Monospace;
+      background-image: linear-gradient(-15deg, #000027, #000027);
+			margin: 0px;
+			overflow: hidden;
+		}
+	</style>
+</head>
+
+<body>
+
+  <div id="container"></div>
+
+  <script type="x-shader/x-vertex" id="vertexShader">
+  	varying vec2 vUv;
+
+  	void main() {
+
+  		vUv = uv;
+  		gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+  	}
+  </script>
+  <script type="x-shader/x-vertex" id="fragmentShader">
+  	varying vec2 vUv;
+
+  	void main() {
+
+  		// colour is RGBA: u, v, 0, 1
+  		gl_FragColor = vec4( vec3( vUv, 0.541 ), 1 );
+
+  	}
+
+  </script>
+
+  <!-- Include vendor scripts -->
+  <script type="text/javascript" src="assets/js/three.min.js"></script>
+  <script type="text/javascript" src="assets/js/controls/TrackballControls.js"></script>
+  <script type="text/javascript" src="assets/js/controls/DragControls.js"></script>
+	<script type="text/javascript" src="assets/js/controls/TransformControls.js"></script>
+  <script type="text/javascript" src="assets/js/Detector.js"></script>
+  <script type="text/javascript" src="assets/js/screenfull.min.js"></script>
+  <script type="text/javascript" src="assets/js/stats.min.js"></script>
+
+  <!-- Include Three.JS scene controller script -->
+  <script type="text/javascript" src="assets/js/new.js"></script>
+
+  <noscript>
+    <p>You need javascript enabled in order to use this web application.</p>
+  </noscript>
+</body>
+</html>
