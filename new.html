@@ -12,12 +12,27 @@
 			margin: 0px;
 			overflow: hidden;
 		}
+		.btn {
+		  display: inline-block;
+		  vertical-align: top;
+		  padding: 8px 14px 10px;
+		  margin-top: 1px;
+		  margin-bottom: 25px;
+		  border: 1px solid;
+		  color: white;
+		  border-radius: 9px;
+		  font-size: 18px;
+		  font-weight: 300;
+		  text-decoration: none;
+		}
 	</style>
 </head>
 
 <body>
 
-  <div id="container"></div>
+  <div id="container">
+		<a href="#" id="stop" class="btn">This hurts my head, please make it stop</a>
+	</div>
 
   <script type="x-shader/x-vertex" id="vertexShader">
   	varying vec2 vUv;
@@ -43,6 +58,7 @@
 
   <!-- Include vendor scripts -->
   <script type="text/javascript" src="assets/js/three.min.js"></script>
+	<script type="text/javascript" src="assets/js/Tone.min.js"></script>
   <script type="text/javascript" src="assets/js/controls/TrackballControls.js"></script>
   <script type="text/javascript" src="assets/js/controls/DragControls.js"></script>
 	<script type="text/javascript" src="assets/js/controls/TransformControls.js"></script>
