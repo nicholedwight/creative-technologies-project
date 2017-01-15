@@ -16,6 +16,14 @@
     var control;
     var raycaster;
 		var mouse;
+    var mesh;
+
+    // COLOURS //
+    // var bgCols = [new Colour(25,31,35,1)];
+    // var darkCols = [new Colour(26,24,30,1),new Colour(25,31,35,1),new Colour(40,30,42,1),new Colour(30,30,34,1),new Colour(25,30,37,1)];
+    // var mainCols = [new Colour(255,255,255,1),new Colour(232,52,77,1),new Colour(255,202,196,1),new Colour(54,216,172,1),new Colour(84,231,196,1),new Colour(255,81,105,1)];
+    // var masterCol = new Colour(0,0,0,0);
+    // var beginAlpha = 100;
 
     function init() {
         renderer = new THREE.WebGLRenderer({
@@ -54,6 +62,7 @@
 
         animate();
     }
+    // End init
 
     function createTriangle() {
       var light, light2, mesh;
@@ -119,23 +128,24 @@
       return pad.substring(0, pad.length - numberString.length) + numberString;
     }
 
-    function play() {
+    var synth = new Tone.PolySynth(16, Tone.SimpleSynth).set({
+      "volume" : -8,
+      "oscillator" : {
+        "type" : "sine",
+        frequency: 90,
+        detune: 0,
+        phase: 0
+      },
+      "envelope" : {
+        "attack" :  0.025,
+        "decay" :  0.35,
+        "sustain" :  0.18,
+        "release" :  0.2,
+      },
+    }).toMaster();
 
-      var synth = new Tone.PolySynth(16, Tone.SimpleSynth).set({
-        "volume" : -8,
-        "oscillator" : {
-          "type" : "triangle1",
-          frequency: 90,
-          detune: 0,
-          phase: 0
-        },
-        "envelope" : {
-          "attack" :  0.025,
-          "decay" :  0.35,
-          "sustain" :  0.18,
-          "release" :  0.2,
-        },
-      }).toMaster();
+    var isplaying = false;
+    function play() {
 
       Tone.Transport.bpm.value = 50;
 
@@ -161,23 +171,48 @@
       }, "32i");
 
       Tone.Transport.start();
+      isplaying = true;
     }
 
     /* End Tone.js code */
-
+    var isMouseDown = false
+    var originalmeshx;
     function onDocumentMouseDown( event ) {
+
+      originalmeshx = objects[0].position.x;
 			event.preventDefault();
 			mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
 			mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-
 			raycaster.setFromCamera( mouse, camera );
 
 			var intersects = raycaster.intersectObjects( objects );
 
 			if ( intersects.length > 0 ) {
         console.log('clicked');
-        play();
+        isMouseDown = true;
+        if (isplaying === false) {
+          play();
+        } else {
+          console.log('already playing music');
+        }
 		  }
+    }
+
+    function onDocumentMouseMove() {
+      // Need to fix so it's on mousedown and move
+      // if (isMouseDown === true) {
+          if (objects[0].position.x < originalmeshx) {
+            console.log('moved left');
+            synth.volume = objects[0].position.x;
+          } else if (objects[0].position.x > originalmeshx) {
+            console.log('moved right');
+            synth.volume = objects[0].position.x;
+          }
+      // }
+    }
+
+    function onDocumentMouseUp() {
+      isMouseDown = false;
     }
 
     function stopMusic() {
@@ -189,6 +224,8 @@
     var stopButton = document.getElementById('stop');
     stopButton.addEventListener('click', stopMusic);
     document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    document.addEventListener( 'mousemove', onDocumentMouseUp, false );
     window.addEventListener('load', onWindowLoaded, false);
     window.addEventListener('resize', onWindowResize, false);
     window.addEventListener( 'keydown', function ( event ) {
