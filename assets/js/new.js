@@ -16,14 +16,7 @@
     var control;
     var raycaster;
 		var mouse;
-    var mesh;
-
-    // COLOURS //
-    // var bgCols = [new Colour(25,31,35,1)];
-    // var darkCols = [new Colour(26,24,30,1),new Colour(25,31,35,1),new Colour(40,30,42,1),new Colour(30,30,34,1),new Colour(25,30,37,1)];
-    // var mainCols = [new Colour(255,255,255,1),new Colour(232,52,77,1),new Colour(255,202,196,1),new Colour(54,216,172,1),new Colour(84,231,196,1),new Colour(255,81,105,1)];
-    // var masterCol = new Colour(0,0,0,0);
-    // var beginAlpha = 100;
+    var mesh, stars, skeleton, circle;
 
     function init() {
         renderer = new THREE.WebGLRenderer({
@@ -39,27 +32,16 @@
         var aspect = window.innerWidth / window.innerHeight;
         var near = 1;
         var far = 65536;
-
         camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-        camera.position.set(0, 0, 30);
-
+        camera.position.set(0, 0, 600);
         scene = new THREE.Scene();
         scene.add(camera);
 
-
-        // controls = new THREE.TrackballControls(camera);
-				// controls.rotateSpeed = 1.0;
-				// controls.zoomSpeed = 1.2;
-				// controls.panSpeed = 0.8;
-				// controls.noZoom = false;
-				// controls.noPan = false;
-				// controls.staticMoving = true;
-				// controls.dynamicDampingFactor = 0.3;
-
-        createTriangle();
+        // createTriangle();
+        drawStars();
+        dysonPlanet();
 
         // var dragControls = new THREE.DragControls(objects, camera, renderer.domElement);
-
         animate();
     }
     // End init
@@ -92,13 +74,90 @@
       objects.push(mesh);
     }
 
+    function drawStars() {
+      var starGeometry = new THREE.SphereGeometry(1000, 100, 50);
+      var starAmount = 20000;
+      var starMaterial = {
+        size: 1.0,
+        opacity: 0.7
+      };
+      var starMesh = new THREE.PointsMaterial(starMaterial);
+
+      for (var i = 0; i < starAmount; i++) {
+        var starVertex = new THREE.Vector3();
+        starVertex.x = Math.random() * 1000 - 500;
+        starVertex.y = Math.random() * 1000 - 500;
+        starVertex.z = Math.random() * 800 - 500;
+        starGeometry.vertices.push(starVertex);
+      }
+      stars = new THREE.Points(starGeometry, starMesh);
+      scene.add(stars);
+    }
+
+    function dysonPlanet() {
+      circle = new THREE.Object3D();
+      skeleton = new THREE.Object3D();
+
+      scene.add(circle);
+      scene.add(skeleton);
+
+      var geometry = new THREE.TetrahedronGeometry(2, 0);
+      var geom = new THREE.IcosahedronGeometry(7, 1);
+      var geom2 = new THREE.IcosahedronGeometry(15, 1);
+
+      var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        shading: THREE.FlatShading
+      });
+
+      var mat = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        shading: THREE.FlatShading
+      });
+
+      var mat2 = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        wireframe: true,
+        side: THREE.DoubleSide
+
+      });
+
+      var planet = new THREE.Mesh(geom, mat);
+      planet.scale.x = planet.scale.y = planet.scale.z = 8;
+      circle.add(planet);
+
+      var dysonSphere = new THREE.Mesh(geom2, mat2);
+      dysonSphere.scale.x = dysonSphere.scale.y = dysonSphere.scale.z = 5;
+      skeleton.add(dysonSphere);
+
+      var ambientLight = new THREE.AmbientLight(0x999999 );
+      scene.add(ambientLight);
+
+      var lights = [];
+      lights[0] = new THREE.DirectionalLight(0xffffff, 1);
+      lights[0].position.set(-1, 0, -0.5);
+      lights[1] = new THREE.DirectionalLight(0x11E8BB, 1);
+      lights[1].position.set(-0.75, -1, 0.5);
+      lights[2] = new THREE.DirectionalLight(0x8200C9, 1);
+      lights[2].position.set(0.75, 1, 0.5);
+      scene.add(lights[0]);
+      scene.add(lights[1]);
+      scene.add(lights[2]);
+      control = new THREE.TransformControls(camera, renderer.domElement);
+      control.addEventListener( 'change', render );
+      control.attach(dysonSphere);
+      scene.add(control);
+      objects.push(dysonSphere);
+    }
+
     function render() {
-      // controls.update();
       renderer.render(scene, camera);
     }
 
     function animate() {
         requestAnimationFrame(animate);
+        circle.rotation.x -= 0.0020;
+        circle.rotation.y -= 0.0030;
         render();
     }
 
@@ -177,8 +236,8 @@
     /* End Tone.js code */
     var isMouseDown = false
     var originalmeshx;
-    function onDocumentMouseDown( event ) {
 
+    function onDocumentMouseDown( event ) {
       originalmeshx = objects[0].position.x;
 			event.preventDefault();
 			mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
@@ -195,7 +254,9 @@
         } else {
           console.log('already playing music');
         }
-		  }
+		  } else {
+        console.log('cant click');
+      }
     }
 
     function onDocumentMouseMove() {
@@ -203,10 +264,10 @@
       // if (isMouseDown === true) {
           if (objects[0].position.x < originalmeshx) {
             console.log('moved left');
-            synth.volume = objects[0].position.x;
+            synth.volume.value = objects[0].position.x;
           } else if (objects[0].position.x > originalmeshx) {
             console.log('moved right');
-            synth.volume = objects[0].position.x;
+            synth.volume.value = objects[0].position.x;
           }
       // }
     }
@@ -217,6 +278,7 @@
 
     function stopMusic() {
       Tone.Transport.stop();
+      isplaying = false;
     }
 
     raycaster = new THREE.Raycaster();
@@ -229,20 +291,20 @@
     window.addEventListener('load', onWindowLoaded, false);
     window.addEventListener('resize', onWindowResize, false);
     window.addEventListener( 'keydown', function ( event ) {
-      switch ( event.keyCode ) {
-        case 81: // Q
-          control.setSpace( control.space === "local" ? "world" : "local" );
-          break;
-        case 17: // Ctrl
-          control.setTranslationSnap( 100 );
-          control.setRotationSnap( THREE.Math.degToRad( 15 ) );
-          break;
-        case 87: // W
-          control.setMode( "translate" );
-          break;
-        // case 69: // E
-        //   control.setMode( "rotate" );
+      // switch ( event.keyCode ) {
+      //   case 81: // Q
+      //     control.setSpace( control.space === "local" ? "world" : "local" );
+      //     break;
+      //   case 17: // Ctrl
+      //     control.setTranslationSnap( 100 );
+      //     control.setRotationSnap( THREE.Math.degToRad( 15 ) );
         //   break;
+        // case 87: // W
+        //   control.setMode( "translate" );
+        //   break;
+        // case 69: // E
+          control.setMode( "rotate" );
+          // break;
         // case 82: // R
         //   control.setMode( "scale" );
         //   break;
@@ -254,6 +316,6 @@
         // case 109: // -, _, num-
         //   control.setSize( Math.max( control.size - 0.1, 0.1 ) );
         //   break;
-      }
+      // }
     });
 })();

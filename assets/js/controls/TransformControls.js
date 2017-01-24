@@ -238,9 +238,6 @@
 		var lineYGeometry = new THREE.BufferGeometry();
 		lineYGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  0, 1, 0 ], 3 ) );
 
-		// var lineZGeometry = new THREE.BufferGeometry();
-		// lineZGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  0, 0, 1 ], 3 ) );
-
 		this.handleGizmos = {
 
 			X: [
@@ -379,48 +376,16 @@
 
 		this.handleGizmos = {
 
-			X: [
-				[ new THREE.Line( new CircleGeometry( 1, 'x', 0.5 ), new GizmoLineMaterial( { color: 0xff0000 } ) ) ]
-			],
-
-			Y: [
-				[ new THREE.Line( new CircleGeometry( 1, 'y', 0.5 ), new GizmoLineMaterial( { color: 0x00ff00 } ) ) ]
-			],
-
-			Z: [
-				[ new THREE.Line( new CircleGeometry( 1, 'z', 0.5 ), new GizmoLineMaterial( { color: 0x0000ff } ) ) ]
-			],
-
-			E: [
-				[ new THREE.Line( new CircleGeometry( 1.25, 'z', 1 ), new GizmoLineMaterial( { color: 0xcccc00 } ) ) ]
-			],
-
-			XYZE: [
-				[ new THREE.Line( new CircleGeometry( 1, 'z', 1 ), new GizmoLineMaterial( { color: 0x787878 } ) ) ]
-			]
+			// E: [
+			// 	[ new THREE.Line( new CircleGeometry( 0.75, 'z', 1 ), new GizmoLineMaterial(  ) ) ]
+			// ]
 
 		};
 
 		this.pickerGizmos = {
 
-			X: [
-				[ new THREE.Mesh( new THREE.TorusBufferGeometry( 1, 0.12, 4, 12, Math.PI ), pickerMaterial ), [ 0, 0, 0 ], [ 0, - Math.PI / 2, - Math.PI / 2 ] ]
-			],
-
-			Y: [
-				[ new THREE.Mesh( new THREE.TorusBufferGeometry( 1, 0.12, 4, 12, Math.PI ), pickerMaterial ), [ 0, 0, 0 ], [ Math.PI / 2, 0, 0 ] ]
-			],
-
-			Z: [
-				[ new THREE.Mesh( new THREE.TorusBufferGeometry( 1, 0.12, 4, 12, Math.PI ), pickerMaterial ), [ 0, 0, 0 ], [ 0, 0, - Math.PI / 2 ] ]
-			],
-
 			E: [
-				[ new THREE.Mesh( new THREE.TorusBufferGeometry( 1.25, 0.12, 2, 24 ), pickerMaterial ) ]
-			],
-
-			XYZE: [
-				[ new THREE.Mesh() ]// TODO
+				[ new THREE.Mesh( new THREE.TorusBufferGeometry( 0.75, 0.12, 2, 24 ), pickerMaterial ) ]
 			]
 
 		};
@@ -865,7 +830,8 @@
 
 					event.preventDefault();
 					event.stopPropagation();
-
+					console.log('butts');
+					var butts = true;
 					scope.dispatchEvent( mouseDownEvent );
 
 					scope.axis = intersect.object.name;
