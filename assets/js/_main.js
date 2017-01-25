@@ -23,21 +23,24 @@ function animate() {
 
 function render() {
   raycaster.setFromCamera( mouse, camera );
-  intersects = raycaster.intersectObjects(scene.children);
-	if ( intersects.length > 0 ) {
-		if ( INTERSECTED != intersects[ 0 ].object ) {
-			if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-			INTERSECTED = intersects[ 0 ].object;
+  intersects = raycaster.intersectObjects(scene.children, true);
+  // groupIntersects = raycaster.intersectObjects(group.children, true);
+	if (intersects.length > 0) {
+		if (INTERSECTED != intersects[0].object) {
+			if (INTERSECTED) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
       selection = intersects[0].object;
-			INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-			INTERSECTED.material.emissive.setHex( 0xff0000 );
+      // groupSelection = groupIntersects[0].object;
+			// selection.currentHex = selection.material.emissive.getHex();
+			// selection.material.emissive.setHex(0xff0000);
+      // groupSelection.currentHex = groupSelection.material.emissive.getHex();
+			// groupSelection.material.emissive.setHex(0xff0000);
 		}
     pointer = true;
     interactable = true;
     container.style.cursor="pointer";
 	} else {
-		if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-		INTERSECTED = null;
+		// if (INTERSECTED) selection.material.emissive.setHex( selection.currentHex );
+		selection = null;
     interactable = false;
     container.style.cursor="default";
 	}
@@ -65,8 +68,13 @@ function onMouseMove(event) {
 	mouse.y = - (event.clientY / window.innerHeight)  * 2 + 1;
 
   if (interactable && mouseIsDown == true) {
-
-    console.log(selection);
+    // console.log(selection);
+    if (selection.name == 'dysonSphere') {
+      control = new THREE.HorizontalControls();
+      // control.attach(selection);
+    } else if (selection.parent.name == 'cloudGroup') {
+      control = new THREE.VerticalControls();
+    }
   } else if (!interactable && mouseIsDown == true) {
     console.log('you didnt click an interactive object :(');
   }

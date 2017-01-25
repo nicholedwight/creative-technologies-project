@@ -75,8 +75,6 @@ function drawSkies() {
 }
 
 function createPlanet() {
-  this.mesh = new THREE.Object3D();
-  this.mesh.name = 'planet';
   var geometry = new THREE.IcosahedronGeometry(7, 1);
   var material = new THREE.MeshPhongMaterial({
     color: 0xffffff,
@@ -97,6 +95,7 @@ function createDysonsphere() {
 
   });
   var dysonSphere = new THREE.Mesh(geometry, material);
+  // control.addEventListener('change', render);
   dysonSphere.scale.x = dysonSphere.scale.y = dysonSphere.scale.z = 5;
   dysonSphere.name = 'dysonSphere';
   scene.add(dysonSphere);
@@ -104,6 +103,8 @@ function createDysonsphere() {
 
 
 function createClouds() {
+  group = new THREE.Group();
+  group.name = 'cloudGroup';
   var geometry = new THREE.OctahedronBufferGeometry(10, 1);
   var material = new THREE.MeshPhongMaterial({
     color: Colors.white,
@@ -113,12 +114,15 @@ function createClouds() {
   var fluff = new THREE.Mesh(geometry.clone(), material);
   fluff.scale.set(1,1,1);
   fluff.position.set(60,60, 120);
+  fluff.name = 'fluff';
   var fluff2 = new THREE.Mesh(geometry.clone(), material);
   fluff2.scale.set(1.5,1.5,1.5);
   fluff2.position.set(75,60, 120);
+  fluff2.name = 'fluff2';
   var fluff3 = new THREE.Mesh(geometry.clone(), material);
   fluff3.scale.set(1,1,1);
   fluff3.position.set(90,55, 120);
+  fluff3.name = 'fluff3';
   var edgeGeometry = new THREE.EdgesGeometry(fluff.geometry);
   var edgeGeometry2 = new THREE.EdgesGeometry(fluff2.geometry);
   var edgeGeometry3 = new THREE.EdgesGeometry(fluff3.geometry);
@@ -129,5 +133,6 @@ function createClouds() {
   fluff.add(edges);
   fluff2.add(edges2);
   fluff3.add(edges3);
-  scene.add(fluff, fluff2, fluff3);
+  group.add(fluff, fluff2, fluff3);
+  scene.add(group);
 }
