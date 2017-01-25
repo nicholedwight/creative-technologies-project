@@ -63,10 +63,10 @@ function onMouseMove(event) {
   if (interactable && mouseIsDown == true) {
     // console.log(selection);
     if (selection.name == 'dysonSphere') {
-      control = new THREE.HorizontalControls();
+      // control = new THREE.HorizontalControls();
       // control.attach(selection);
     } else if (selection.parent.name == 'cloudGroup') {
-      control = new THREE.VerticalControls();
+      // control = new THREE.VerticalControls();
     }
   } else if (!interactable && mouseIsDown == true) {
     console.log('you didnt click an interactive object :(');
