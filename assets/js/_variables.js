@@ -23,6 +23,7 @@ var group;
 var x, y;
 var player1 = false;
 var player2 = false;
+var plangroup;
 // var MasterObject, World3D;
 // var ControllerList = [];
 // var controllers = [];

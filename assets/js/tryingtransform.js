@@ -80,6 +80,9 @@ function createPlanet() {
   var planet = new THREE.Mesh(geometry, material);
   planet.scale.x = planet.scale.y = planet.scale.z = 8;
   planet.name = 'planet';
+  control = new THREE.TransformControlsX(camera, renderer.domElement, "x");
+  control.attach(planet);
+  scene.add(control);
   scene.add(planet);
 }
 
