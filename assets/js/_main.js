@@ -7,6 +7,7 @@ function init() {
     createDysonsphere();
     createClouds();
     // var dragControls = new THREE.DragControls(objects, camera, renderer.domElement);
+    setupAudio();
 
     document.addEventListener( 'mousemove', onMouseMove, false );
     document.addEventListener( 'mousedown', onMousePress, false );

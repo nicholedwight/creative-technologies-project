@@ -1055,7 +1055,7 @@ THREE.TransformControlsY = function ( camera, domElement, sliderAxis ) {
         event.stopPropagation();
 
         scope.dispatchEvent( mouseDownEvent );
-        
+
         scope.axis = intersect.object.name;
 
         scope.update();
@@ -1129,8 +1129,17 @@ THREE.TransformControlsY = function ( camera, domElement, sliderAxis ) {
         if ( scope.axis.search( "Y" ) === - 1 ) point.y = 0;
 
         point.applyMatrix4( tempMatrix.getInverse( parentRotationMatrix ) );
+        console.log('dragging cloud');
 
+        if (player1 == false) {
+          Player[1].start();
+          player1 = true;
+        }
+        Player[1].volume.rampTo(scope.object.position.y / 5);
+        console.log(scope.object.position.y);
+        // console.log(Player[1].volume);
         scope.object.position.copy( oldPosition );
+        // console.log(scope.object.position);
         scope.object.position.add( point );
 
       }

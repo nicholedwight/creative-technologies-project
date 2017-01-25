@@ -21,6 +21,7 @@ var offset = new THREE.Vector3();
 var control, controlY;
 var group;
 var x, y;
+var player1 = false;
 // var MasterObject, World3D;
 // var ControllerList = [];
 // var controllers = [];
