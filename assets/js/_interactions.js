@@ -19,7 +19,7 @@ var GizmoMaterial = function ( parameters ) {
 
     if ( highlighted ) {
 
-      this.color.setRGB( 1, 1, 0 );
+      this.color.setRGB( 0, 152, 10 );
       this.opacity = 1;
 
     } else {
@@ -37,40 +37,40 @@ GizmoMaterial.prototype = Object.create( THREE.MeshBasicMaterial.prototype );
 GizmoMaterial.prototype.constructor = GizmoMaterial;
 
 
-var GizmoLineMaterial = function ( parameters ) {
-
-  THREE.LineBasicMaterial.call( this );
-
-  this.depthTest = false;
-  this.depthWrite = false;
-  this.transparent = true;
-  this.linewidth = 1;
-
-  this.setValues( parameters );
-
-  this.oldColor = this.color.clone();
-  this.oldOpacity = this.opacity;
-
-  this.highlight = function( highlighted ) {
-
-    if ( highlighted ) {
-
-      this.color.setRGB( 1, 1, 0 );
-      this.opacity = 1;
-
-    } else {
-
-      this.color.copy( this.oldColor );
-      this.opacity = this.oldOpacity;
-
-    }
-
-  };
-
-};
-
-GizmoLineMaterial.prototype = Object.create( THREE.LineBasicMaterial.prototype );
-GizmoLineMaterial.prototype.constructor = GizmoLineMaterial;
+// var GizmoLineMaterial = function ( parameters ) {
+//
+//   THREE.LineBasicMaterial.call( this );
+//
+//   this.depthTest = false;
+//   this.depthWrite = false;
+//   this.transparent = true;
+//   this.linewidth = 1;
+//
+//   this.setValues( parameters );
+//
+//   this.oldColor = this.color.clone();
+//   this.oldOpacity = this.opacity;
+//
+//   this.highlight = function( highlighted ) {
+//
+//     if ( highlighted ) {
+//
+//       this.color.setRGB( 1, 1, 0 );
+//       this.opacity = 1;
+//
+//     } else {
+//
+//       this.color.copy( this.oldColor );
+//       this.opacity = this.oldOpacity;
+//
+//     }
+//
+//   };
+//
+// };
+//
+// GizmoLineMaterial.prototype = Object.create( THREE.LineBasicMaterial.prototype );
+// GizmoLineMaterial.prototype.constructor = GizmoLineMaterial;
 
 
 var pickerMaterial = new GizmoMaterial( { visible: false, transparent: false } );
@@ -232,17 +232,11 @@ THREE.TransformGizmoTranslateX = function () {
 
   rightArrowGeometry.merge( rightmesh.geometry, rightmesh.matrix );
   leftArrowGeometry.merge( leftmesh.geometry, leftmesh.matrix );
-  // arrowGeometry.merge(rightArrowGeometry, leftArrowGeometry);
-  // var lineXGeometry = new THREE.BufferGeometry();
-  // lineXGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  1, 0, 0 ], 3 ) );
-
-  // var lineYGeometry = new THREE.BufferGeometry();
-  // lineYGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  0, 1, 0 ], 3 ) );
 
   this.handleGizmos = {
 
     X: [
-      [ new THREE.Mesh( rightArrowGeometry, new GizmoMaterial( { color: 0xff0000 } ) ), [ 0.5, 0, 0 ], [ 0, 0, - Math.PI / 2 ] ]
+      [ new THREE.Mesh( rightArrowGeometry, new GizmoMaterial( { opacity: 0 } ) ), [ 0.5, 0, 0 ], [ 0, 0, - Math.PI / 2 ] ]
     ],
 
     // Y: [
@@ -365,7 +359,7 @@ THREE.TransformGizmoTranslateY = function () {
   this.handleGizmos = {
 
     Y: [
-      [ new THREE.Mesh( arrowGeometry, new GizmoMaterial( { color: 0x00ff00 } ) ), [ 0, 0.5, 0 ] ]
+      [ new THREE.Mesh( arrowGeometry, new GizmoMaterial( { opacity: 0 } ) ), [ 0, 0.5, 0 ] ]
     ]
 
   };
@@ -773,7 +767,6 @@ THREE.TransformControlsX = function ( camera, domElement, sliderAxis ) {
 
         if ( scope.axis.search( "X" ) !== - 1 ) scope.object.position.x = Math.round( scope.object.position.x / scope.translationSnap ) * scope.translationSnap;
         if ( scope.axis.search( "Y" ) !== - 1 ) scope.object.position.y = Math.round( scope.object.position.y / scope.translationSnap ) * scope.translationSnap;
-        // if ( scope.axis.search( "Z" ) !== - 1 ) scope.object.position.z = Math.round( scope.object.position.z / scope.translationSnap ) * scope.translationSnap;
 
         if ( scope.space === "local" ) {
 
