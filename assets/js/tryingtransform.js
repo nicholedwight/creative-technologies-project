@@ -25,9 +25,6 @@ function createScene() {
 }
 
 function createLights() {
-  // var ambientLight = new THREE.AmbientLight(0x999999 );
-  // scene.add(ambientLight);
-
   var lights = [];
   lights[0] = new THREE.DirectionalLight(0xffffff, 1);
   lights[0].position.set(-1, 0, -0.5);
@@ -95,7 +92,6 @@ function createDysonsphere() {
 
   });
   var dysonSphere = new THREE.Mesh(geometry, material);
-  // control.addEventListener('change', render);
   dysonSphere.scale.x = dysonSphere.scale.y = dysonSphere.scale.z = 5;
   dysonSphere.name = 'dysonSphere';
   scene.add(dysonSphere);

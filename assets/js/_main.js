@@ -24,22 +24,15 @@ function animate() {
 function render() {
   raycaster.setFromCamera( mouse, camera );
   intersects = raycaster.intersectObjects(scene.children, true);
-  // groupIntersects = raycaster.intersectObjects(group.children, true);
 	if (intersects.length > 0) {
 		if (INTERSECTED != intersects[0].object) {
 			if (INTERSECTED) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
       selection = intersects[0].object;
-      // groupSelection = groupIntersects[0].object;
-			// selection.currentHex = selection.material.emissive.getHex();
-			// selection.material.emissive.setHex(0xff0000);
-      // groupSelection.currentHex = groupSelection.material.emissive.getHex();
-			// groupSelection.material.emissive.setHex(0xff0000);
 		}
     pointer = true;
     interactable = true;
     container.style.cursor="pointer";
 	} else {
-		// if (INTERSECTED) selection.material.emissive.setHex( selection.currentHex );
 		selection = null;
     interactable = false;
     container.style.cursor="default";
