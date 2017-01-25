@@ -36,43 +36,6 @@ var GizmoMaterial = function ( parameters ) {
 GizmoMaterial.prototype = Object.create( THREE.MeshBasicMaterial.prototype );
 GizmoMaterial.prototype.constructor = GizmoMaterial;
 
-
-// var GizmoLineMaterial = function ( parameters ) {
-//
-//   THREE.LineBasicMaterial.call( this );
-//
-//   this.depthTest = false;
-//   this.depthWrite = false;
-//   this.transparent = true;
-//   this.linewidth = 1;
-//
-//   this.setValues( parameters );
-//
-//   this.oldColor = this.color.clone();
-//   this.oldOpacity = this.opacity;
-//
-//   this.highlight = function( highlighted ) {
-//
-//     if ( highlighted ) {
-//
-//       this.color.setRGB( 1, 1, 0 );
-//       this.opacity = 1;
-//
-//     } else {
-//
-//       this.color.copy( this.oldColor );
-//       this.opacity = this.oldOpacity;
-//
-//     }
-//
-//   };
-//
-// };
-//
-// GizmoLineMaterial.prototype = Object.create( THREE.LineBasicMaterial.prototype );
-// GizmoLineMaterial.prototype.constructor = GizmoLineMaterial;
-
-
 var pickerMaterial = new GizmoMaterial( { visible: false, transparent: false } );
 
 
@@ -1092,7 +1055,7 @@ THREE.TransformControlsY = function ( camera, domElement, sliderAxis ) {
         event.stopPropagation();
 
         scope.dispatchEvent( mouseDownEvent );
-
+        
         scope.axis = intersect.object.name;
 
         scope.update();
