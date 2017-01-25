@@ -698,7 +698,6 @@ THREE.TransformControlsX = function ( camera, domElement, sliderAxis ) {
 
         if ( scope.axis.search( "X" ) === - 1 ) point.x = 0;
         if ( scope.axis.search( "Y" ) === - 1 ) point.y = 0;
-        // if ( scope.axis.search( "Z" ) === - 1 ) point.z = 0;
 
         point.applyMatrix4( oldRotationMatrix );
 
@@ -711,10 +710,18 @@ THREE.TransformControlsX = function ( camera, domElement, sliderAxis ) {
 
         if ( scope.axis.search( "X" ) === - 1 ) point.x = 0;
         if ( scope.axis.search( "Y" ) === - 1 ) point.y = 0;
-        // if ( scope.axis.search( "Z" ) === - 1 ) point.z = 0;
 
         point.applyMatrix4( tempMatrix.getInverse( parentRotationMatrix ) );
 
+        if (scope.object.position.x > 10 || scope.object.position.x < -10) {
+          if (player2 == false) {
+            Player[2].start();
+            player2 = true;
+          }
+          Player[2].volume.rampTo(scope.object.position.x / 10);
+          Player[0].volume.rampTo(3);
+        } else if (scope.object.position.x < 10 && scope.object.position.x > -10) {
+        }
         scope.object.position.copy( oldPosition );
         scope.object.position.add( point );
 
@@ -1136,10 +1143,8 @@ THREE.TransformControlsY = function ( camera, domElement, sliderAxis ) {
           player1 = true;
         }
         Player[1].volume.rampTo(scope.object.position.y / 5);
-        console.log(scope.object.position.y);
-        // console.log(Player[1].volume);
+        // console.log(scope.object.position.y);
         scope.object.position.copy( oldPosition );
-        // console.log(scope.object.position);
         scope.object.position.add( point );
 
       }

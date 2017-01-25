@@ -102,6 +102,13 @@ function setupAudio() {
     });
     Player[1].volume.value = 0;
 
+    Player[2] = new Tone.Player().toMaster();
+    Player[2].load("./assets/loops/sun.mp3",function(player) {
+        player.loopEnd = 3;
+        player.loop = true;
+    });
+    Player[2].volume.value = 0;
+
 
     // Player.sync();
     Tone.Transport.start();
