@@ -94,7 +94,7 @@ function createDysonsphere() {
   var dysonSphere = new THREE.Mesh(geometry, material);
   dysonSphere.scale.x = dysonSphere.scale.y = dysonSphere.scale.z = 5;
   dysonSphere.name = 'dysonSphere';
-  control = new THREE.TransformControls(camera, renderer.domElement, "x");
+  control = new THREE.TransformControlsX(camera, renderer.domElement, "x");
   control.attach(dysonSphere);
   scene.add(control);
   scene.add(dysonSphere);
