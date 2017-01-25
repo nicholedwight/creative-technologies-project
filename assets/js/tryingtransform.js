@@ -133,7 +133,7 @@ function createClouds() {
   fluff2.add(edges2);
   fluff3.add(edges3);
   group.add(fluff, fluff2, fluff3);
-  controlY = new THREE.TransformControls(camera, renderer.domElement, "y");
+  controlY = new THREE.TransformControlsY(camera, renderer.domElement, "y");
   controlY.attach(group);
   scene.add(controlY);
   scene.add(group);
