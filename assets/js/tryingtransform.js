@@ -94,9 +94,9 @@ function createDysonsphere() {
   var dysonSphere = new THREE.Mesh(geometry, material);
   dysonSphere.scale.x = dysonSphere.scale.y = dysonSphere.scale.z = 5;
   dysonSphere.name = 'dysonSphere';
-  control = new THREE.TransformControls(camera, renderer.domElement);
-  control.attach(dysonSphere);
-  scene.add(control);
+  // control = new THREE.TransformControls(camera, renderer.domElement, "x");
+  // control.attach(dysonSphere);
+  // scene.add(control);
   scene.add(dysonSphere);
 }
 
@@ -133,5 +133,8 @@ function createClouds() {
   fluff2.add(edges2);
   fluff3.add(edges3);
   group.add(fluff, fluff2, fluff3);
+  controlY = new THREE.TransformControls(camera, renderer.domElement, "y");
+  controlY.attach(fluff);
+  scene.add(controlY);
   scene.add(group);
 }

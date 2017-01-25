@@ -376,9 +376,6 @@ THREE.TransformGizmoTranslateY = function () {
 
   rightArrowGeometry.merge( rightmesh.geometry, rightmesh.matrix );
   leftArrowGeometry.merge( leftmesh.geometry, leftmesh.matrix );
-  // arrowGeometry.merge(rightArrowGeometry, leftArrowGeometry);
-  // var lineXGeometry = new THREE.BufferGeometry();
-  // lineXGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  1, 0, 0 ], 3 ) );
 
   // var lineYGeometry = new THREE.BufferGeometry();
   // lineYGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  0, 1, 0 ], 3 ) );
@@ -495,225 +492,8 @@ THREE.TransformGizmoTranslateY = function () {
 THREE.TransformGizmoTranslateY.prototype = Object.create( THREE.TransformGizmo.prototype );
 THREE.TransformGizmoTranslateY.prototype.constructor = THREE.TransformGizmoTranslateY;
 
-// THREE.TransformGizmoRotate = function () {
-//
-//   THREE.TransformGizmo.call( this );
-//
-//   var CircleGeometry = function ( radius, facing, arc ) {
-//
-//     var geometry = new THREE.BufferGeometry();
-//     var vertices = [];
-//     arc = arc ? arc : 1;
-//
-//     for ( var i = 0; i <= 64 * arc; ++ i ) {
-//
-//       if ( facing === 'x' ) vertices.push( 0, Math.cos( i / 32 * Math.PI ) * radius, Math.sin( i / 32 * Math.PI ) * radius );
-//       if ( facing === 'y' ) vertices.push( Math.cos( i / 32 * Math.PI ) * radius, 0, Math.sin( i / 32 * Math.PI ) * radius );
-//       if ( facing === 'z' ) vertices.push( Math.sin( i / 32 * Math.PI ) * radius, Math.cos( i / 32 * Math.PI ) * radius, 0 );
-//
-//     }
-//
-//     geometry.addAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-//     return geometry;
-//
-//   };
-//
-//   this.handleGizmos = {
-//
-//     // E: [
-//     // 	[ new THREE.Line( new CircleGeometry( 0.75, 'z', 1 ), new GizmoLineMaterial(  ) ) ]
-//     // ]
-//
-//   };
-//
-//   this.pickerGizmos = {
-//
-//     E: [
-//       [ new THREE.Mesh( new THREE.TorusBufferGeometry( 0.75, 0.12, 2, 24 ), pickerMaterial ) ]
-//     ]
-//
-//   };
-//
-//   this.setActivePlane = function ( axis ) {
-//
-//     if ( axis === "E" ) this.activePlane = this.planes[ "XYZE" ];
-//
-//     if ( axis === "X" ) this.activePlane = this.planes[ "YZ" ];
-//
-//     if ( axis === "Y" ) this.activePlane = this.planes[ "XZ" ];
-//
-//     if ( axis === "Z" ) this.activePlane = this.planes[ "XY" ];
-//
-//   };
-//
-//   this.update = function ( rotation, eye2 ) {
-//
-//     THREE.TransformGizmo.prototype.update.apply( this, arguments );
-//
-//     var group = {
-//
-//       handles: this[ "handles" ],
-//       pickers: this[ "pickers" ]
-//
-//     };
-//
-//     var tempMatrix = new THREE.Matrix4();
-//     var worldRotation = new THREE.Euler( 0, 0, 1 );
-//     var tempQuaternion = new THREE.Quaternion();
-//     var unitX = new THREE.Vector3( 1, 0, 0 );
-//     var unitY = new THREE.Vector3( 0, 1, 0 );
-//     var unitZ = new THREE.Vector3( 0, 0, 1 );
-//     var quaternionX = new THREE.Quaternion();
-//     var quaternionY = new THREE.Quaternion();
-//     var quaternionZ = new THREE.Quaternion();
-//     var eye = eye2.clone();
-//
-//     worldRotation.copy( this.planes[ "XY" ].rotation );
-//     tempQuaternion.setFromEuler( worldRotation );
-//
-//     tempMatrix.makeRotationFromQuaternion( tempQuaternion ).getInverse( tempMatrix );
-//     eye.applyMatrix4( tempMatrix );
-//
-//     this.traverse( function( child ) {
-//
-//       tempQuaternion.setFromEuler( worldRotation );
-//
-//       if ( child.name === "X" ) {
-//
-//         quaternionX.setFromAxisAngle( unitX, Math.atan2( - eye.y, eye.z ) );
-//         tempQuaternion.multiplyQuaternions( tempQuaternion, quaternionX );
-//         child.quaternion.copy( tempQuaternion );
-//
-//       }
-//
-//       if ( child.name === "Y" ) {
-//
-//         quaternionY.setFromAxisAngle( unitY, Math.atan2( eye.x, eye.z ) );
-//         tempQuaternion.multiplyQuaternions( tempQuaternion, quaternionY );
-//         child.quaternion.copy( tempQuaternion );
-//
-//       }
-//
-//       if ( child.name === "Z" ) {
-//
-//         quaternionZ.setFromAxisAngle( unitZ, Math.atan2( eye.y, eye.x ) );
-//         tempQuaternion.multiplyQuaternions( tempQuaternion, quaternionZ );
-//         child.quaternion.copy( tempQuaternion );
-//
-//       }
-//
-//     } );
-//
-//   };
-//
-//   this.init();
-//
-// };
-//
-// THREE.TransformGizmoRotate.prototype = Object.create( THREE.TransformGizmo.prototype );
-// THREE.TransformGizmoRotate.prototype.constructor = THREE.TransformGizmoRotate;
-//
-// THREE.TransformGizmoScale = function () {
-//
-//   THREE.TransformGizmo.call( this );
-//
-//   var arrowGeometry = new THREE.Geometry();
-//   var mesh = new THREE.Mesh( new THREE.BoxGeometry( 0.125, 0.125, 0.125 ) );
-//   mesh.position.y = 0.5;
-//   mesh.updateMatrix();
-//
-//   arrowGeometry.merge( mesh.geometry, mesh.matrix );
-//
-//   var lineXGeometry = new THREE.BufferGeometry();
-//   lineXGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  1, 0, 0 ], 3 ) );
-//
-//   var lineYGeometry = new THREE.BufferGeometry();
-//   lineYGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  0, 1, 0 ], 3 ) );
-//
-//   var lineZGeometry = new THREE.BufferGeometry();
-//   lineZGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  0, 0, 1 ], 3 ) );
-//
-//   this.handleGizmos = {
-//
-//     X: [
-//       [ new THREE.Mesh( arrowGeometry, new GizmoMaterial( { color: 0xff0000 } ) ), [ 0.5, 0, 0 ], [ 0, 0, - Math.PI / 2 ] ],
-//       [ new THREE.Line( lineXGeometry, new GizmoLineMaterial( { color: 0xff0000 } ) ) ]
-//     ],
-//
-//     Y: [
-//       [ new THREE.Mesh( arrowGeometry, new GizmoMaterial( { color: 0x00ff00 } ) ), [ 0, 0.5, 0 ] ],
-//       [ new THREE.Line( lineYGeometry, new GizmoLineMaterial( { color: 0x00ff00 } ) ) ]
-//     ],
-//
-//     Z: [
-//       [ new THREE.Mesh( arrowGeometry, new GizmoMaterial( { color: 0x0000ff } ) ), [ 0, 0, 0.5 ], [ Math.PI / 2, 0, 0 ] ],
-//       [ new THREE.Line( lineZGeometry, new GizmoLineMaterial( { color: 0x0000ff } ) ) ]
-//     ],
-//
-//     XYZ: [
-//       [ new THREE.Mesh( new THREE.BoxBufferGeometry( 0.125, 0.125, 0.125 ), new GizmoMaterial( { color: 0xffffff, opacity: 0.25 } ) ) ]
-//     ]
-//
-//   };
-//
-//   this.pickerGizmos = {
-//
-//     X: [
-//       [ new THREE.Mesh( new THREE.CylinderBufferGeometry( 0.2, 0, 1, 4, 1, false ), pickerMaterial ), [ 0.6, 0, 0 ], [ 0, 0, - Math.PI / 2 ] ]
-//     ],
-//
-//     Y: [
-//       [ new THREE.Mesh( new THREE.CylinderBufferGeometry( 0.2, 0, 1, 4, 1, false ), pickerMaterial ), [ 0, 0.6, 0 ] ]
-//     ],
-//
-//     Z: [
-//       [ new THREE.Mesh( new THREE.CylinderBufferGeometry( 0.2, 0, 1, 4, 1, false ), pickerMaterial ), [ 0, 0, 0.6 ], [ Math.PI / 2, 0, 0 ] ]
-//     ],
-//
-//     XYZ: [
-//       [ new THREE.Mesh( new THREE.BoxBufferGeometry( 0.4, 0.4, 0.4 ), pickerMaterial ) ]
-//     ]
-//
-//   };
-//
-//   this.setActivePlane = function ( axis, eye ) {
-//
-//     var tempMatrix = new THREE.Matrix4();
-//     eye.applyMatrix4( tempMatrix.getInverse( tempMatrix.extractRotation( this.planes[ "XY" ].matrixWorld ) ) );
-//
-//     if ( axis === "X" ) {
-//
-//       this.activePlane = this.planes[ "XY" ];
-//       if ( Math.abs( eye.y ) > Math.abs( eye.z ) ) this.activePlane = this.planes[ "XZ" ];
-//
-//     }
-//
-//     if ( axis === "Y" ) {
-//
-//       this.activePlane = this.planes[ "XY" ];
-//       if ( Math.abs( eye.x ) > Math.abs( eye.z ) ) this.activePlane = this.planes[ "YZ" ];
-//
-//     }
-//
-//     if ( axis === "Z" ) {
-//
-//       this.activePlane = this.planes[ "XZ" ];
-//       if ( Math.abs( eye.x ) > Math.abs( eye.y ) ) this.activePlane = this.planes[ "YZ" ];
-//
-//     }
-//
-//     if ( axis === "XYZ" ) this.activePlane = this.planes[ "XYZE" ];
-//
-//   };
-//
-//   this.init();
-//
-// };
-//
-// THREE.TransformGizmoScale.prototype = Object.create( THREE.TransformGizmo.prototype );
-// THREE.TransformGizmoScale.prototype.constructor = THREE.TransformGizmoScale;
 
-THREE.TransformControls = function ( camera, domElement ) {
+THREE.TransformControls = function ( camera, domElement, sliderAxis ) {
 
   THREE.Object3D.call( this );
 
@@ -732,12 +512,22 @@ THREE.TransformControls = function ( camera, domElement ) {
   var _mode = "horizontal";
   var _dragging = false;
   var _plane = "XY";
-  var _gizmo = {
+  // var _gizmo = {
 
-    "horizontal": new THREE.TransformGizmoTranslateX(),
-    "vertical": new THREE.TransformGizmoRotateY(),
+    // "horizontal": new THREE.TransformGizmoTranslateX(),
+    // "vertical": new THREE.TransformGizmoTranslateY(),
     // "scale": new THREE.TransformGizmoScale()
-  };
+  // };
+  console.log(sliderAxis)
+  if (sliderAxis == 'y') {
+    var _gizmo = {
+      "vertical": new THREE.TransformGizmoTranslateY()
+    };
+  } else if (sliderAxis == 'x') {
+    var _gizmo = {
+      "horizontal": new THREE.TransformGizmoTranslateX()
+    };
+  }
 
   for ( var type in _gizmo ) {
 
