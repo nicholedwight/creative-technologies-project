@@ -357,7 +357,8 @@ THREE.TransformGizmoTranslateY = function () {
 
   var arrowGeometry = new THREE.Geometry();
   var upmesh = new THREE.Mesh( new THREE.CylinderGeometry( 0, 0.05, 0.2, 12, 1, false ) );
-  upmesh.position.y = -0.5;
+  upmesh.position.y = 0.3;
+  upmesh.position.x = 0.95;
   upmesh.updateMatrix();
   arrowGeometry.merge(upmesh.geometry, upmesh.matrix);
 
@@ -372,7 +373,7 @@ THREE.TransformGizmoTranslateY = function () {
   this.pickerGizmos = {
 
     Y: [
-      [ new THREE.Mesh( new THREE.CylinderBufferGeometry( 1, 1, 1, 4, 1, false ), pickerMaterial ), [ 0, 0.6, 0 ] ]
+      [ new THREE.Mesh( new THREE.CylinderBufferGeometry( 0.5, 0.5, 0.5, 4, 1, false ), pickerMaterial ), [ 1, 0.8, 0 ] ]
     ]
 
   };
