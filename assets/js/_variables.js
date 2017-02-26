@@ -24,6 +24,18 @@ var x, y;
 var player1 = false;
 var player2 = false;
 var plangroup;
+var dysonSphere;
+
+var targetRotation = 0;
+var targetRotationOnMouseDown = 0;
+
+var mouseX = 0;
+var mouseXOnMouseDown = 0;
+
+var windowHalfX = window.innerWidth / 2;
+var windowHalfY = window.innerHeight / 2;
+var parent;
+var cube, cubePivot;
 // var MasterObject, World3D;
 // var ControllerList = [];
 // var controllers = [];
@@ -35,3 +47,21 @@ var plangroup;
 // var mouseY = 0;
 //
 // var cxa;
+
+
+var _plane = new THREE.Plane();
+	var _raycaster = new THREE.Raycaster();
+
+	var _mouse = new THREE.Vector2();
+	var offset = new THREE.Vector3();
+	var _intersection = new THREE.Vector3();
+
+	var _selected = null, _hovered = null;
+
+var animate, e,
+        nbSBaseSegX, nbSBaseSegY,
+        base, terran, terranHigh, gun, barrel,
+        baseGeom, terranGeom, terranHighGeom, gunGeom,
+        baseMat, terranMat, terranHighMat, gunMat,
+        dirLight, ambLight
+    ;

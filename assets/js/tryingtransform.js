@@ -17,7 +17,8 @@ function createScene() {
   var near = 1;
   var far = 65536;
   camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(0, 0, 600);
+  camera.position.set(0, 0, 1000);
+  // var controls = new THREE.OrbitControls(camera, renderer.domElement);
   scene = new THREE.Scene();
   scene.add(camera);
 
@@ -79,10 +80,11 @@ function createPlanet() {
   });
   var planet = new THREE.Mesh(geometry, material);
   planet.scale.x = planet.scale.y = planet.scale.z = 8;
+  planet.position.set(-300, 0, 0);
   planet.name = 'planet';
-  control = new THREE.TransformControlsX(camera, renderer.domElement, "x");
-  control.attach(planet);
-  scene.add(control);
+  // control = new THREE.TransformControlsX(camera, renderer.domElement, "x");
+  // control.attach(planet);
+  // scene.add(control);
   scene.add(planet);
 }
 
@@ -92,20 +94,91 @@ function createDysonsphere() {
     color: 0xffffff,
     wireframe: true,
     side: THREE.DoubleSide
-
   });
-  var dysonSphere = new THREE.Mesh(geometry, material);
+  dysonSphere = new THREE.Mesh(geometry, material);
   dysonSphere.scale.x = dysonSphere.scale.y = dysonSphere.scale.z = 5;
   dysonSphere.name = 'dysonSphere';
-  control = new THREE.TransformControlsX(camera, renderer.domElement, "x");
-  control.attach(dysonSphere);
-  scene.add(control);
+  dysonSphere.position.set(-300, 0, 0);
+  // Creating the control which calls the Translate function for the X axis
+  // control = new THREE.TransformControlsX(camera, renderer.domElement, "x");
+  // Attaching control to the mesh
+  // control.attach(dysonSphere);
+  // Adding both the control and the mesh to the scene
+  // scene.add(control);
   scene.add(dysonSphere);
+}
+
+function createEarth() {
+    widthSegs = 25, heightSegs = 15;
+
+    baseGeom = new THREE.SphereGeometry( 80, widthSegs, heightSegs );
+    terrainHeightGeom = new THREE.SphereGeometry( 79, widthSegs, heightSegs );
+    terrainGeom = new THREE.SphereGeometry( 77, widthSegs, heightSegs );
+
+    // creating fluctuation in terrain height to look more like a planet
+    var knead = function( vertices, amplitude ) {
+      for ( var i = 0; i < vertices.length; i++ ) {
+        if ( i % ( widthSegs + 1 ) == 0 )
+          vertices[i] = vertices[i + widthSegs];
+        else
+          vertices[i][["x", "y", "z"][~~( Math.random() * 3 )]] += Math.random() * amplitude;
+      }
+    };
+
+    knead(baseGeom.vertices, 10);
+    knead(terrainGeom.vertices, 13);
+    knead(terrainHeightGeom.vertices, 13);
+
+    //----------
+    // materials
+
+    baseMat = new THREE.MeshLambertMaterial( {
+      color: 0x76acda,
+      transparent: true,
+      opacity: 0.75,
+      shading: THREE.FlatShading
+    } );
+    terrainMat = new THREE.MeshLambertMaterial( {
+      color: 0xe3c97f,
+      shading: THREE.FlatShading
+    } );
+    terrainHighMat = new THREE.MeshLambertMaterial( {
+      color: 0xb8e058,
+      shading: THREE.FlatShading
+    } );
+
+
+    //----------
+    // meshes
+
+    base = new THREE.Mesh( baseGeom, baseMat );
+    terrain = new THREE.Mesh( terrainGeom, terrainMat );
+    terrainHeight = new THREE.Mesh( terrainHeightGeom, terrainHighMat );
+
+    scene.add( base );
+    base.add( terrain );
+    base.add( terrainHeight );
+
+    // PIVOT
+    // cubePivot = new THREE.Object3D();
+    // base.add(cubePivot);
+
+    var geometry = new THREE.SphereGeometry(50, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
+    var material = new THREE.MeshNormalMaterial();
+    parent = new THREE.Object3D();
+    scene.add(parent);
+    var pivot = new THREE.Object3D();
+    pivot.rotation.set(10, 10, 10);
+    parent.add(pivot);
+    cube = new THREE.Mesh( geometry, material );
+    cube.name = 'moon';
+    cube.position.x = 250;
+    pivot.add(cube);
 }
 
 
 function createClouds() {
-  group = new THREE.Group();
+  group = new THREE.Object3D();
   group.name = 'cloudGroup';
   var geometry = new THREE.OctahedronBufferGeometry(10, 1);
   var material = new THREE.MeshPhongMaterial({
@@ -114,16 +187,16 @@ function createClouds() {
     emissive: Colors.white
   });
   var fluff = new THREE.Mesh(geometry.clone(), material);
-  fluff.scale.set(1,1,1);
-  fluff.position.set(60,60, 120);
+  fluff.scale.set(2,2,2);
+  fluff.position.set(50,60, 120);
   fluff.name = 'fluff';
   var fluff2 = new THREE.Mesh(geometry.clone(), material);
-  fluff2.scale.set(1.5,1.5,1.5);
+  fluff2.scale.set(2.5,2.5,2.5);
   fluff2.position.set(75,60, 120);
   fluff2.name = 'fluff2';
   var fluff3 = new THREE.Mesh(geometry.clone(), material);
-  fluff3.scale.set(1,1,1);
-  fluff3.position.set(90,55, 120);
+  fluff3.scale.set(2,2,2);
+  fluff3.position.set(100,55, 120);
   fluff3.name = 'fluff3';
   var edgeGeometry = new THREE.EdgesGeometry(fluff.geometry);
   var edgeGeometry2 = new THREE.EdgesGeometry(fluff2.geometry);
@@ -136,8 +209,8 @@ function createClouds() {
   fluff2.add(edges2);
   fluff3.add(edges3);
   group.add(fluff, fluff2, fluff3);
-  controlY = new THREE.TransformControlsY(camera, renderer.domElement, "y");
-  controlY.attach(group);
-  scene.add(controlY);
+  // controlY = new THREE.TransformControlsY(camera, renderer.domElement, "y");
+  // controlY.attach(group);
+  // scene.add(controlY);
   scene.add(group);
 }
