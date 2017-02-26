@@ -29,8 +29,19 @@ var dysonSphere;
 var targetRotation = 0;
 var targetRotationOnMouseDown = 0;
 
+var targetRotationX = 0.5;
+var targetRotationOnMouseDownX = 0;
+
+var targetRotationY = 0.2;
+var targetRotationOnMouseDownY = 0;
+
 var mouseX = 0;
 var mouseXOnMouseDown = 0;
+
+var mouseY = 0;
+var mouseYOnMouseDown = 0;
+
+var slowingFactor = 0.25;
 
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
