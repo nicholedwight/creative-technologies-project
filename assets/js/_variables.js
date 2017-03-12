@@ -19,12 +19,15 @@ var selection = null;
 var intersects, groupIntersects;
 var offset = new THREE.Vector3();
 var control, controlY;
-var group;
+var group, cloudPivot;
 var x, y;
 var player1 = false;
 var player2 = false;
 var plangroup;
 var dysonSphere;
+var sun, sun2, sun3, sunAtmosphere, moon;
+var rocket;
+var starsArray = [];
 
 var targetRotation = 0;
 var targetRotationOnMouseDown = 0;
@@ -34,6 +37,9 @@ var targetRotationOnMouseDownX = 0;
 
 var targetRotationY = 0.2;
 var targetRotationOnMouseDownY = 0;
+
+var targetRotationZ = 0.2;
+var targetRotationOnMouseDownZ = 0;
 
 var mouseX = 0;
 var mouseXOnMouseDown = 0;

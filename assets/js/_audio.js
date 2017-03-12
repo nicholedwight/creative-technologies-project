@@ -91,7 +91,7 @@ function setupAudio() {
     Player[0].load("./assets/loops/ambient.mp3",function(player) {
         player.loopEnd = 3;
         player.loop = true;
-        player.autostart = true;
+        player.autostart = false;
     });
     Player[0].volume.value = 8;
 

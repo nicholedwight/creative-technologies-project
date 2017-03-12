@@ -1,0 +1,416 @@
+{
+    "accessors": {
+        "accessor_64": {
+            "bufferView": "bufferView_82",
+            "byteOffset": 0,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 171,
+            "max": [
+                70
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_67": {
+            "bufferView": "bufferView_82",
+            "byteOffset": 342,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 54,
+            "max": [
+                176
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_70": {
+            "bufferView": "bufferView_82",
+            "byteOffset": 450,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 90,
+            "max": [
+                248
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_73": {
+            "bufferView": "bufferView_82",
+            "byteOffset": 630,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 570,
+            "max": [
+                566
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_76": {
+            "bufferView": "bufferView_82",
+            "byteOffset": 1770,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 108,
+            "max": [
+                887
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_78": {
+            "bufferView": "bufferView_83",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "componentType": 5126,
+            "count": 942,
+            "max": [
+                8.87685,
+                10.2513,
+                35.9415
+            ],
+            "min": [
+                -8.87897,
+                -5.1275,
+                3.35116
+            ],
+            "type": "VEC3"
+        },
+        "accessor_80": {
+            "bufferView": "bufferView_83",
+            "byteOffset": 11304,
+            "byteStride": 12,
+            "componentType": 5126,
+            "count": 942,
+            "max": [
+                0.994536,
+                1,
+                1
+            ],
+            "min": [
+                -0.994536,
+                -1,
+                -1
+            ],
+            "type": "VEC3"
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@6779c094d694e951beeb1012d03d4faa1edb0ddf",
+        "premultipliedAlpha": true,
+        "profile": {
+            "api": "WebGL",
+            "version": "1.0.2"
+        },
+        "version": "1.0.1"
+    },
+    "bufferViews": {
+        "bufferView_82": {
+            "buffer": "rocket",
+            "byteLength": 1988,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_83": {
+            "buffer": "rocket",
+            "byteLength": 22608,
+            "byteOffset": 1988,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "rocket": {
+            "byteLength": 24596,
+            "type": "arraybuffer",
+            "uri": "rocket.bin"
+        }
+    },
+    "extensionsUsed": [
+        "KHR_materials_common"
+    ],
+    "materials": {
+        "exhaustports_001-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.116756,
+                            0.169634,
+                            0.203435,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "exhaustports_001"
+        },
+        "glass_001-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.0791747,
+                            0.124302,
+                            0.2013,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 68,
+                        "specular": [
+                            0.83,
+                            0.83,
+                            0.83,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "glass_001"
+        },
+        "landing_gear_interior_001-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.116756,
+                            0.169634,
+                            0.203435,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "landing_gear_interior_001"
+        },
+        "ship_color_001-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0,
+                            0.738958,
+                            0.950959,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 68,
+                        "specular": [
+                            0.225,
+                            0.225,
+                            0.225,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "ship_color_001"
+        },
+        "window_frame_001-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.634602,
+                            0.633062,
+                            0.636219,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 68,
+                        "specular": [
+                            0.645,
+                            0.645,
+                            0.645,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "window_frame_001"
+        }
+    },
+    "meshes": {
+        "factory_rocket_01_001-mesh": {
+            "name": "factory_rocket_01.001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_80",
+                        "POSITION": "accessor_78"
+                    },
+                    "indices": "accessor_64",
+                    "material": "exhaustports_001-effect",
+                    "mode": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_80",
+                        "POSITION": "accessor_78"
+                    },
+                    "indices": "accessor_67",
+                    "material": "glass_001-effect",
+                    "mode": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_80",
+                        "POSITION": "accessor_78"
+                    },
+                    "indices": "accessor_70",
+                    "material": "landing_gear_interior_001-effect",
+                    "mode": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_80",
+                        "POSITION": "accessor_78"
+                    },
+                    "indices": "accessor_73",
+                    "material": "ship_color_001-effect",
+                    "mode": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_80",
+                        "POSITION": "accessor_78"
+                    },
+                    "indices": "accessor_76",
+                    "material": "window_frame_001-effect",
+                    "mode": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "factory_rocket_01": {
+            "children": [],
+            "meshes": [
+                "factory_rocket_01_001-mesh"
+            ],
+            "name": "factory_rocket_01"
+        },
+        "node_1": {
+            "children": [
+                "factory_rocket_01"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "Y_UP_Transform"
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_1"
+            ]
+        }
+    },
+    "skins": {}
+}

@@ -2,11 +2,12 @@ function init() {
     createScene();
     createLights();
 
-    // drawSkies();
-    createPlanet();
-    createDysonsphere();
+    createGround();
+    createSun();
     createClouds();
     createEarth();
+    createMoon();
+    createRocket();
     // var dragControls = new THREE.DragControls(objects, camera, renderer.domElement);
     setupAudio();
 
@@ -20,7 +21,18 @@ function init() {
 
 function animate() {
   requestAnimationFrame(animate);
-  // cubePivot.rotation.y += 0.05;
+  var timer = 0.00001 * Date.now();
+  for (var i = 0, il = starsArray.length; i < il; i++) {
+       var star = starsArray[i];
+       star.position.x = 400 * Math.sin(timer + i);
+       star.position.z = 400 * Math.sin(timer + i * 1.1);
+   }
+  sun.rotation.x += 0.009;
+  sun2.rotation.y += 0.009;
+  sun3.rotation.z += 0.009;
+  sunAtmosphere.rotation.x += 0.0005;
+  sunAtmosphere.rotation.y += 0.0005;
+  // group.rotation.z += 0.01;
   render();
 }
 
@@ -43,6 +55,7 @@ function render() {
 
   rotateAroundWorldAxis(parent, new THREE.Vector3(0, 1, 0), targetRotationX);
   rotateAroundWorldAxis(parent, new THREE.Vector3(1, 0, 0), targetRotationY);
+  rotateAroundWorldAxis(group, new THREE.Vector3(0, 0, 1), targetRotationZ);
 
   targetRotationY = targetRotationY;
   targetRotationX = targetRotationX;
@@ -66,6 +79,7 @@ function onWindowLoaded() {
   init();
   targetRotationY = 0;
   targetRotationX = 0;
+  targetRotationZ = 0;
 }
 
 function onWindowResize() {
@@ -100,22 +114,22 @@ function onMouseMove(event) {
       // console.log('dragging moon');
       // console.log(vector);
 
-      mouseX = event.clientX - windowHalfX;
+        mouseX = event.clientX - windowHalfX;
 
-     targetRotationX = ( mouseX - mouseXOnMouseDown ) * 0.00025;
+       targetRotationX = ( mouseX - mouseXOnMouseDown ) * 0.00025;
 
-     mouseY = event.clientY - windowHalfY;
+       mouseY = event.clientY - windowHalfY;
 
-     targetRotationY = ( mouseY - mouseYOnMouseDown ) * 0.00025;
-     console.log(targetRotationY,targetRotationX);
+       targetRotationY = ( mouseY - mouseYOnMouseDown ) * 0.00025;
+    //  console.log(targetRotationY,targetRotationX);
     }
 
-    if (selection.name == 'dysonSphere') {
+    if (selection.parent.name == "factory_rocket_01") {
       mouseX = event.clientX - windowHalfX;
 
     	targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown );
       var max = 0.1; var min = -0.1;
-      targetRotation = ( targetRotation - cube.rotation.y ) * 0.0006;
+      targetRotation = ( targetRotation - moon.rotation.y ) * 0.0006;
       if (targetRotation > max) {
         targetRotation = max;
       } else if (targetRotation < min) {
@@ -124,11 +138,19 @@ function onMouseMove(event) {
 
       var vector = new THREE.Vector3(intersects[0].point.sub(offset).x, 0, 0);
       // console.log(vector);
-      dysonSphere.position.copy(vector);
-      console.log('dragging dysonSphere');
-
-
+      rocket.position.copy(vector);
+      console.log('dragging rocket');
     }
+
+    // console.log(selection.parent.name);
+
+    if (selection.name == 'fluff' || selection.name == 'fluff2' || selection.name == 'fluff3') {
+
+     mouseY = event.clientY - windowHalfY;
+
+     targetRotationZ = ( mouseY - mouseYOnMouseDown ) * 0.00025;
+    }
+    console.log(selection.name);
 
 
 
@@ -157,6 +179,7 @@ function onMouseRelease() {
   interactable = false;
   targetRotationY = 0;
   targetRotationX = 0;
+  targetRotationZ = 0;
 }
 
 

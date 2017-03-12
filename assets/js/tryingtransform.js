@@ -25,90 +25,80 @@ function createScene() {
   window.addEventListener('resize', onWindowResize, false);
 }
 
+var hemisphereLight, shadowLight;
+
 function createLights() {
-  var lights = [];
-  lights[0] = new THREE.DirectionalLight(0xffffff, 1);
-  lights[0].position.set(-1, 0, -0.5);
-  lights[1] = new THREE.DirectionalLight(0x11E8BB, 1);
-  lights[1].position.set(-0.75, -1, 0.5);
-  lights[2] = new THREE.DirectionalLight(0x8200C9, 1);
-  lights[2].position.set(0.75, 0, 0.5);
-  lights[3] = new THREE.DirectionalLight(0x999999, 0.5);
-  lights[3].position.set(-10, 3, 1);
-  lights[3].castShadow = true;
-  scene.add(lights[0]);
-  scene.add(lights[1]);
-  scene.add(lights[2]);
-  scene.add(lights[3]);
+	// A hemisphere light is a gradient colored light;
+	// the first parameter is the sky color, the second parameter is the ground color,
+	// the third parameter is the intensity of the light
+	hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9)
+	shadowLight = new THREE.DirectionalLight(0xffffff, .9);
+	shadowLight.position.set(150, 250, 100);
+
+	shadowLight.castShadow = true;
+	shadowLight.shadow.camera.left = -400;
+	shadowLight.shadow.camera.right = 400;
+	shadowLight.shadow.camera.top = 400;
+	shadowLight.shadow.camera.bottom = -400;
+	shadowLight.shadow.camera.near = 1;
+	shadowLight.shadow.camera.far = 1000;
+
+	// define the resolution of the shadow; the higher the better,
+	// but also the more expensive and less performant
+	shadowLight.shadow.mapSize.width = 2048;
+	shadowLight.shadow.mapSize.height = 2048;
+
+	scene.add(hemisphereLight);
+	scene.add(shadowLight);
+  var geoSphere = new THREE.SphereGeometry(Math.random() * 1, 20, 20);
+    for (var i = 0; i < 500; i++) {
+        starMat = new THREE.MeshPhongMaterial({
+            emissive: '#fff'
+        });
+        starsArray.push(new THREE.Mesh(new THREE.SphereGeometry(Math.random() * 1, 20, 20), starMat));
+    }
+    for (var i = 0; i < starsArray.length; i++) {
+        starsArray[i].position.set(Math.random() * 1200 - 600, Math.random() * 800 - 400, Math.random() * 300 - 400);
+        scene.add(starsArray[i]);
+    }
 }
 
-// SETTING UP 3D MODELS
-
-Stars = function() {
-  this.mesh = new THREE.Points();
-  this.mesh.name = "star";
-  var geometry = new THREE.SphereGeometry(1000, 100, 50);
-  var starAmount = 20000;
-  var material = {
-    size: 1.0,
-    opacity: 0.7
-  };
-  var mesh = new THREE.PointsMaterial(material);
-
-  for (var i = 0; i < starAmount; i++) {
-    var starVertex = new THREE.Vector3();
-    starVertex.x = Math.random() * 1000 - 500;
-    starVertex.y = Math.random() * 1000 - 500;
-    starVertex.z = Math.random() * 800 - 500;
-    geometry.vertices.push(starVertex);
-  }
-  stars = new THREE.Points(geometry, mesh);
-  this.mesh.add(stars);
-}
 
 // MODELS
-function drawSkies() {
-  stars = new Stars();
-  scene.add(stars.mesh);
-}
 
-function createPlanet() {
-  var geometry = new THREE.IcosahedronGeometry(7, 1);
-  var material = new THREE.MeshPhongMaterial({
-    color: 0xffffff,
+function createGround() {
+  var planeMaterial = new THREE.MeshPhongMaterial({
+    specular: 0xfb8717,
+    color: 0xFF4E50,
+    emissive: 0xFF4E50,
+    shininess: 30,
     shading: THREE.FlatShading
   });
-  var planet = new THREE.Mesh(geometry, material);
-  planet.scale.x = planet.scale.y = planet.scale.z = 8;
-  planet.position.set(-300, 0, 0);
-  planet.name = 'planet';
-  // control = new THREE.TransformControlsX(camera, renderer.domElement, "x");
-  // control.attach(planet);
-  // scene.add(control);
-  scene.add(planet);
-}
 
-function createDysonsphere() {
-  var geometry = new THREE.IcosahedronGeometry(15, 1);
-  var material = new THREE.MeshPhongMaterial({
-    color: 0xffffff,
-    wireframe: true,
-    side: THREE.DoubleSide
-  });
-  dysonSphere = new THREE.Mesh(geometry, material);
-  dysonSphere.scale.x = dysonSphere.scale.y = dysonSphere.scale.z = 5;
-  dysonSphere.name = 'dysonSphere';
-  dysonSphere.position.set(-300, 0, 0);
-  // Creating the control which calls the Translate function for the X axis
-  // control = new THREE.TransformControlsX(camera, renderer.domElement, "x");
-  // Attaching control to the mesh
-  // control.attach(dysonSphere);
-  // Adding both the control and the mesh to the scene
-  // scene.add(control);
-  scene.add(dysonSphere);
+  widthSegs = 75, heightSegs = 35;
+
+  groundGeometry = new THREE.SphereGeometry( 90, widthSegs, heightSegs );
+
+  var knead = function( vertices, amplitude ) {
+    for ( var i = 0; i < vertices.length; i++ ) {
+      if ( i % ( widthSegs + 1 ) == 0 )
+        vertices[i] = vertices[i + widthSegs];
+      else
+        vertices[i][["x", "y", "z"][~~( Math.random() * 3 )]] += Math.random() * amplitude;
+    }
+  };
+
+  knead(groundGeometry.vertices, 10);
+  ground = new THREE.Mesh(groundGeometry, planeMaterial);
+  ground.name = "ground";
+  ground.position.set(0, -98, 950);
+  ground.rotateX(2);
+  scene.add(ground);
 }
 
 function createEarth() {
+    // Code for creating Earth was adapted from Sam Saccone at http://codepen.io/s/details/kAcDI
+
     widthSegs = 25, heightSegs = 15;
 
     baseGeom = new THREE.SphereGeometry( 80, widthSegs, heightSegs );
@@ -129,9 +119,6 @@ function createEarth() {
     knead(terrainGeom.vertices, 13);
     knead(terrainHeightGeom.vertices, 13);
 
-    //----------
-    // materials
-
     baseMat = new THREE.MeshLambertMaterial( {
       color: 0x76acda,
       transparent: true,
@@ -147,35 +134,87 @@ function createEarth() {
       shading: THREE.FlatShading
     } );
 
-
-    //----------
-    // meshes
-
     base = new THREE.Mesh( baseGeom, baseMat );
     terrain = new THREE.Mesh( terrainGeom, terrainMat );
     terrainHeight = new THREE.Mesh( terrainHeightGeom, terrainHighMat );
-
+    base.receiveShadow = true;
+    terrain.receiveShadow = true;
+    terrainHeight.receiveShadow = true;
     scene.add( base );
     base.add( terrain );
     base.add( terrainHeight );
 
-    // PIVOT
-    // cubePivot = new THREE.Object3D();
-    // base.add(cubePivot);
+}
 
-    var geometry = new THREE.SphereGeometry(50, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
-    var material = new THREE.MeshNormalMaterial();
+function createMoon() {
+
+    // var geometry = new THREE.SphereGeometry(50, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
+    // var material = new THREE.MeshNormalMaterial();
+    var geometry = new THREE.IcosahedronGeometry(50, 1);
+    var material = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      shading: THREE.FlatShading
+    });
     parent = new THREE.Object3D();
     scene.add(parent);
     var pivot = new THREE.Object3D();
     pivot.rotation.set(10, 10, 10);
     parent.add(pivot);
-    cube = new THREE.Mesh( geometry, material );
-    cube.name = 'moon';
-    cube.position.x = 250;
-    pivot.add(cube);
+    moon = new THREE.Mesh( geometry, material );
+    parent.castShadow = true;
+    moon.name = 'moon';
+    moon.position.x = 250;
+    pivot.add(moon);
 }
 
+function createSun() {
+  var sunMat = new THREE.MeshPhongMaterial({
+      color: 0xF66120,
+      emissive: 0xF66120,
+      specular: 0xFFED22,
+      shininess: 10,
+      shading: THREE.FlatShading,
+      transparent: 1,
+      opacity: 1
+  });
+  var sunMat2 = new THREE.MeshPhongMaterial({
+      color: 0xF66120,
+      emissive: 0xF66120,
+      specular: 0xFFED22,
+      shininess: 10,
+      shading: THREE.FlatShading,
+      transparent: 1,
+      opacity: 1
+  });
+  sun = new THREE.Mesh(new THREE.IcosahedronGeometry(10, 1), sunMat);
+  scene.add(sun);
+  sun.scale.set(10, 10, 10);
+  sun.position.set(450, 250, 0);
+  sun2 = new THREE.Mesh(new THREE.IcosahedronGeometry(10, 1), sunMat2);
+  sun2.rotation.x = 1;
+  sun2.scale.set(10, 10, 10);
+  sun2.position.set(450, 250, 0);
+  scene.add(sun2);
+  sun3 = new THREE.Mesh(new THREE.IcosahedronGeometry(10, 1), sunMat2);
+  sun3.rotation.x = 1;
+  sun3.scale.set(10, 10, 10);
+  sun3.position.set(450, 250, 0);
+
+  var sunAtmosGeo = new THREE.IcosahedronGeometry(13, 1);
+  var sunAtmosMat = new THREE.MeshPhongMaterial({
+    olor: 0xF66120,
+    emissive: 0xF66120,
+    specular: 0xFFED22,
+    shininess: 10,
+    wireframe: true,
+    side: THREE.DoubleSide
+  });
+  sunAtmosphere = new THREE.Mesh(sunAtmosGeo, sunAtmosMat);
+  sunAtmosphere.position.set(450, 250, 0);
+  sunAtmosphere.scale.set(10, 10, 10);
+  scene.add(sunAtmosphere);
+
+}
 
 function createClouds() {
   group = new THREE.Object3D();
@@ -187,30 +226,60 @@ function createClouds() {
     emissive: Colors.white
   });
   var fluff = new THREE.Mesh(geometry.clone(), material);
+  fluff.castShadow = true;
   fluff.scale.set(2,2,2);
-  fluff.position.set(50,60, 120);
+  fluff.position.set(70,80, 30);
   fluff.name = 'fluff';
   var fluff2 = new THREE.Mesh(geometry.clone(), material);
+  fluff2.castShadow = true;
   fluff2.scale.set(2.5,2.5,2.5);
-  fluff2.position.set(75,60, 120);
+  fluff2.position.set(95,60, 30);
   fluff2.name = 'fluff2';
   var fluff3 = new THREE.Mesh(geometry.clone(), material);
+  fluff3.castShadow = true;
   fluff3.scale.set(2,2,2);
-  fluff3.position.set(100,55, 120);
+  fluff3.position.set(110,35, 30);
   fluff3.name = 'fluff3';
-  var edgeGeometry = new THREE.EdgesGeometry(fluff.geometry);
-  var edgeGeometry2 = new THREE.EdgesGeometry(fluff2.geometry);
-  var edgeGeometry3 = new THREE.EdgesGeometry(fluff3.geometry);
-  var edgeMaterial = new THREE.LineBasicMaterial({color: 0xA8A8A8, linewidth: 2});
-  var edges = new THREE.LineSegments(edgeGeometry, edgeMaterial);
-  var edges2 = new THREE.LineSegments(edgeGeometry, edgeMaterial);
-  var edges3 = new THREE.LineSegments(edgeGeometry, edgeMaterial);
-  fluff.add(edges);
-  fluff2.add(edges2);
-  fluff3.add(edges3);
-  group.add(fluff, fluff2, fluff3);
+  // var edgeGeometry = new THREE.EdgesGeometry(fluff.geometry);
+  // var edgeGeometry2 = new THREE.EdgesGeometry(fluff2.geometry);
+  // var edgeGeometry3 = new THREE.EdgesGeometry(fluff3.geometry);
+  // var edgeMaterial = new THREE.LineBasicMaterial({color: 0xA8A8A8, linewidth: 2});
+  // var edges = new THREE.LineSegments(edgeGeometry, edgeMaterial);
+  // var edges2 = new THREE.LineSegments(edgeGeometry, edgeMaterial);
+  // var edges3 = new THREE.LineSegments(edgeGeometry, edgeMaterial);
+  // fluff.add(edges);
+  // fluff2.add(edges2);
+  // fluff3.add(edges3);
+  var cloudPivot = new THREE.Object3D();
+  cloudPivot.name = 'CloudGroup';
+  cloudPivot.rotation.set(10, 10, 10);
+  cloudPivot.position.set(50, 40, 30);
+  group.add(cloudPivot);
+  cloudPivot.add(fluff, fluff2, fluff3);
+
   // controlY = new THREE.TransformControlsY(camera, renderer.domElement, "y");
   // controlY.attach(group);
   // scene.add(controlY);
   scene.add(group);
+}
+
+
+function createRocket(){
+  var loader = new THREE.GLTFLoader();
+  var url = "rocket.gltf";
+
+	var count = 0;
+    loader.load(url, function (data) {
+				gltf = data;
+				var object = gltf.scene;
+				rocket = object;
+				rocket.position.z = 0;
+				rocket.position.x = -50;
+				rocket.position.y = 50;
+				rocket.dir = 2;
+        rocket.scale.set(2,2,2);
+        rocket.rotation.z = 1;
+        rocket.name = "rocket";
+        scene.add(rocket);
+    });
 }
