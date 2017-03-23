@@ -191,6 +191,7 @@ function createSun() {
   });
   sun = new THREE.Mesh(new THREE.IcosahedronGeometry(10, 1), sunMat);
   scene.add(sun);
+  sun.name = 'sun';
   sun.scale.set(10, 10, 10);
   sun.position.set(450, 250, 0);
   sun2 = new THREE.Mesh(new THREE.IcosahedronGeometry(10, 1), sunMat2);
@@ -198,10 +199,13 @@ function createSun() {
   sun2.scale.set(10, 10, 10);
   sun2.position.set(450, 250, 0);
   scene.add(sun2);
+  sun2.name = 'sun';
   sun3 = new THREE.Mesh(new THREE.IcosahedronGeometry(10, 1), sunMat2);
   sun3.rotation.x = 1;
   sun3.scale.set(10, 10, 10);
   sun3.position.set(450, 250, 0);
+  sun3.name = 'sun';
+  scene.add(sun3);
 
   var sunAtmosGeo = new THREE.IcosahedronGeometry(13, 1);
   var sunAtmosMat = new THREE.MeshPhongMaterial({
@@ -215,6 +219,7 @@ function createSun() {
   sunAtmosphere = new THREE.Mesh(sunAtmosGeo, sunAtmosMat);
   sunAtmosphere.position.set(450, 250, 0);
   sunAtmosphere.scale.set(10, 10, 10);
+  sunAtmosphere.name = 'sunAtmosphere';
   scene.add(sunAtmosphere);
 
 }

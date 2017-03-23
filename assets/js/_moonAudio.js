@@ -6,16 +6,17 @@ var scale = [
   "F6"
 ]
 
-// SETTING UP OBJECT THAT WILL HOUSE SYNTHESIZER FOR MOON AUDIO
+// SETTING UP OBJECT THAT WILL HOUSE ALL SYNTHESIZERS
 var synthesizers = {};
 
 
 function attack(id, location) {
+  // console.log(synthesizers);
   // CHOOSING SCALE AT RANDOM BASED ON SCREEN POSITION
   let newIndex = Math.floor((location / window.innerWidth) * scale.length);
   let newFreq = scale[newIndex];
 
-  // CREATING NEW SYNTH AND DEFINING ITS ID TO BE 'MOON'
+  // CREATING NEW SYNTH AND DEFINING ITS ID TO BE SELECTION NAME
   var newSynth = new Tone.DuoSynth({harmonicity: 1.5}).chain(reverb);
   newSynth[id] = id;
   newSynth.volume.value = 2;
@@ -26,6 +27,7 @@ function attack(id, location) {
     // SYNTHESIZER DOES NOT EXIST WITHIN OBJECT, CREATING IT
   } else {
     synthesizers[id].triggerRelease();
+    // delete synthesizers[id];
     // SYNTHESIZER EXISTS, DESTROYING SOUND. NOT DOING SO CAUSES OVERLOAD WITH MULTIPLE SOUNDS AND MY COMPUTER DOESN'T OUTPUT ANYTHING BUT CRACKLE/STATIC
   }
 }

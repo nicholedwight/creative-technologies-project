@@ -174,11 +174,42 @@ function onMousePress(event) {
 
   if (interactable && mouseIsDown == true) {
 
+    // console.log(selection.name);
+
     // MOUSE CLICK ON MOON
     if (selection.name == 'moon') {
+      if (synthesizers['moon']) {
+        // MOON IS ALREADY PLAYING, STOP AUDIO AND REMOVE FROM SYNTHESIZERS OBJECT
+        synthesizers['moon'].triggerRelease();
 
-      // TRIGGERS MOON AUDIO
-      attack('moon', mouseX);
+      } else {
+        // MOON DOES NOT EXIST WITHIN SYNTHESIZERS OBJECT, START AUDIO
+        attack('moon', mouseY);
+      }
+    }
+
+    if (selection.name == 'sunAtmosphere' ) {
+        var kick = new Tone.MembraneSynth({
+          "envelope": {
+            "sustain": Math.floor(Math.random() * 4) + 1,
+            "attack": 0.06,
+            "decay": 0.8
+          },
+          "octaves": 10
+        }).toMaster();
+
+        kick.triggerAttackRelease(Math.floor(Math.random() * 600) + 250, "9n");
+      
+// ROCKET SOUND  new Tone.MembraneSynth({
+// "envelope": {
+// "sustain": 0,
+// "attack": 0.02,
+// "decay": 0.8
+// },
+// "octaves": 10
+// }).toMaster();
+      // ANIMATE SUN ATMOSPHERE ON CLICK
+      selection.scale.set(11, 11, 11);
     }
   }
 }
@@ -189,6 +220,9 @@ function onMouseRelease() {
   targetRotationY = 0;
   targetRotationX = 0;
   targetRotationZ = 0;
+
+  sunAtmosphere.scale.set(10, 10, 10);
+  delete synthesizers['moon'];
 }
 
 
