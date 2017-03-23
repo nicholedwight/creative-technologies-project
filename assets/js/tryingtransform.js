@@ -50,6 +50,12 @@ function createLights() {
 
 	scene.add(hemisphereLight);
 	scene.add(shadowLight);
+}
+
+
+// MODELS
+
+function createStars() {
   var geoSphere = new THREE.SphereGeometry(Math.random() * 1, 20, 20);
     for (var i = 0; i < 500; i++) {
         starMat = new THREE.MeshPhongMaterial({
@@ -62,9 +68,6 @@ function createLights() {
         scene.add(starsArray[i]);
     }
 }
-
-
-// MODELS
 
 function createGround() {
   var planeMaterial = new THREE.MeshPhongMaterial({
@@ -240,16 +243,6 @@ function createClouds() {
   fluff3.scale.set(2,2,2);
   fluff3.position.set(110,35, 30);
   fluff3.name = 'fluff3';
-  // var edgeGeometry = new THREE.EdgesGeometry(fluff.geometry);
-  // var edgeGeometry2 = new THREE.EdgesGeometry(fluff2.geometry);
-  // var edgeGeometry3 = new THREE.EdgesGeometry(fluff3.geometry);
-  // var edgeMaterial = new THREE.LineBasicMaterial({color: 0xA8A8A8, linewidth: 2});
-  // var edges = new THREE.LineSegments(edgeGeometry, edgeMaterial);
-  // var edges2 = new THREE.LineSegments(edgeGeometry, edgeMaterial);
-  // var edges3 = new THREE.LineSegments(edgeGeometry, edgeMaterial);
-  // fluff.add(edges);
-  // fluff2.add(edges2);
-  // fluff3.add(edges3);
   var cloudPivot = new THREE.Object3D();
   cloudPivot.name = 'CloudGroup';
   cloudPivot.rotation.set(10, 10, 10);
@@ -274,11 +267,11 @@ function createRocket(){
 				var object = gltf.scene;
 				rocket = object;
 				rocket.position.z = 0;
-				rocket.position.x = -50;
-				rocket.position.y = 50;
+				rocket.position.x = -65;
+				rocket.position.y = 30;
 				rocket.dir = 2;
         rocket.scale.set(2,2,2);
-        rocket.rotation.z = 1;
+        rocket.rotation.z = 1.5;
         rocket.name = "rocket";
         scene.add(rocket);
     });

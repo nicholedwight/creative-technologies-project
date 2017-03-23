@@ -84,6 +84,7 @@ var Player = [];
 Tone.Transport.bpm.value = 80;
 
 function setupAudio() {
+  console.log('audio butts');
     Tone.Master.volume.value = -18;
 
 

@@ -63,8 +63,13 @@ var cube, cubePivot;
 // var mouseX = 0;
 // var mouseY = 0;
 //
-// var cxa;
+var cxa;
 
+var flickerH = [];
+var flickerX = [];
+var flickerY = [];
+var flickerW = [];
+var flickerCount = 0;
 
 var _plane = new THREE.Plane();
 	var _raycaster = new THREE.Raycaster();

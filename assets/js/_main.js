@@ -1,4 +1,5 @@
 function init() {
+    canvasA = document.getElementById("container");
     createScene();
     createLights();
 
@@ -7,8 +8,7 @@ function init() {
     createClouds();
     createEarth();
     createMoon();
-    createRocket();
-    // var dragControls = new THREE.DragControls(objects, camera, renderer.domElement);
+    // createRocket();
     setupAudio();
 
     document.addEventListener( 'mousemove', onMouseMove, false );
@@ -18,6 +18,7 @@ function init() {
     animate();
 
 }
+
 
 function animate() {
   requestAnimationFrame(animate);
@@ -32,7 +33,6 @@ function animate() {
   sun3.rotation.z += 0.009;
   sunAtmosphere.rotation.x += 0.0005;
   sunAtmosphere.rotation.y += 0.0005;
-  // group.rotation.z += 0.01;
   render();
 }
 
@@ -67,7 +67,7 @@ function rotateAroundWorldAxis( object, axis, radians ) {
     var rotationMatrix = new THREE.Matrix4();
 
     rotationMatrix.makeRotationAxis( axis.normalize(), radians );
-    rotationMatrix.multiply( object.matrix );                       // pre-multiply
+    rotationMatrix.multiply( object.matrix );
     object.matrix = rotationMatrix;
     object.rotation.setFromRotationMatrix( object.matrix );
 }
@@ -80,6 +80,7 @@ function onWindowLoaded() {
   targetRotationY = 0;
   targetRotationX = 0;
   targetRotationZ = 0;
+  // droneStart();
 }
 
 function onWindowResize() {
@@ -95,24 +96,10 @@ function onMouseMove(event) {
 	mouse.y = - (event.clientY / window.innerHeight)  * 2 + 1;
 
   if (interactable && mouseIsDown == true) {
-    // console.log(selection);
 
+
+    // MOUSE DRAG ON MOON
     if (selection.name == 'moon') {
-      // mouseX = event.clientX - windowHalfX;
-      //
-    	// targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown);
-      // var max = 0.1; var min = -0.1;
-      // targetRotation = ( targetRotation - cube.rotation.y ) * 0.0006;
-      // if (intersects[0].point.sub(offset).x > max) {
-      //   targetRotation = max;
-      // } else if (intersects[0].point.sub(offset).x < min) {
-      //   targetRotation = min;
-      // }
-      // var vector = new THREE.Vector3(0, targetRotation, 0);
-      // parent.rotation.set(vector);
-      // // parent.rotation.x += targetRotation;
-      // console.log('dragging moon');
-      // console.log(vector);
 
         mouseX = event.clientX - windowHalfX;
 
@@ -121,9 +108,13 @@ function onMouseMove(event) {
        mouseY = event.clientY - windowHalfY;
 
        targetRotationY = ( mouseY - mouseYOnMouseDown ) * 0.00025;
-    //  console.log(targetRotationY,targetRotationX);
+
+       // CHANGES FREQUENCY OF MOON AUDIO BASED ON SCREEN POSITION
+       changeFrequency('moon', mouseX, mouseY);
     }
 
+
+    // MOUSE DRAG ON ROCKET
     if (selection.parent.name == "factory_rocket_01") {
       mouseX = event.clientX - windowHalfX;
 
@@ -136,26 +127,35 @@ function onMouseMove(event) {
         targetRotation = min;
       }
 
-      var vector = new THREE.Vector3(intersects[0].point.sub(offset).x, 0, 0);
-      // console.log(vector);
+      var vector = new THREE.Vector3(intersects[0].point.sub(offset).x, 30, 0);
       rocket.position.copy(vector);
-      console.log('dragging rocket');
     }
 
-    // console.log(selection.parent.name);
 
+    // MOUSE DRAG ON CLOUD
     if (selection.name == 'fluff' || selection.name == 'fluff2' || selection.name == 'fluff3') {
 
      mouseY = event.clientY - windowHalfY;
-
+     var lastPos = mouseY;
      targetRotationZ = ( mouseY - mouseYOnMouseDown ) * 0.00025;
+
+     if (player1 == false) {
+       Player[1].start();
+       player1 = true;
+       if (selection.position.y > lastPos) {
+         Player[1].volume.rampTo(mouseY / window.innerWidth);
+         console.log(lastPos);
+         console.log('increasing');
+       } else {
+         Player[1].volume.rampTo(mouseY / window.innerWidth);
+         console.log('decreasing');
+       }
+     }
+
     }
-    console.log(selection.name);
-
-
 
   } else if (!interactable && mouseIsDown == true) {
-    console.log('you didnt click an interactive object :(');
+    // console.log('you didnt click an interactive object :(');
   }
 
 
@@ -172,6 +172,15 @@ function onMousePress(event) {
   mouseYOnMouseDown = event.clientY - windowHalfY;
   targetRotationOnMouseDownY = targetRotationY;
 
+  if (interactable && mouseIsDown == true) {
+
+    // MOUSE CLICK ON MOON
+    if (selection.name == 'moon') {
+
+      // TRIGGERS MOON AUDIO
+      attack('moon', mouseX);
+    }
+  }
 }
 
 function onMouseRelease() {
