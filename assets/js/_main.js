@@ -97,7 +97,6 @@ function onMouseMove(event) {
 
   if (interactable && mouseIsDown == true) {
 
-
     // MOUSE DRAG ON MOON
     if (selection.name == 'moon') {
 
@@ -172,34 +171,38 @@ function onMousePress(event) {
   mouseYOnMouseDown = event.clientY - windowHalfY;
   targetRotationOnMouseDownY = targetRotationY;
 
+  var kick = new Tone.MembraneSynth({
+    "envelope": {
+      "sustain": Math.floor(Math.random() * 4) + 1,
+      "attack": 0.06,
+      "decay": 0.8
+    },
+    "octaves": 10
+  }).toMaster();
+
   if (interactable && mouseIsDown == true) {
 
     // console.log(selection.name);
 
     // MOUSE CLICK ON MOON
     if (selection.name == 'moon') {
+
+      // console.log(synthesizers);
       if (synthesizers['moon']) {
         // MOON IS ALREADY PLAYING, STOP AUDIO AND REMOVE FROM SYNTHESIZERS OBJECT
-        synthesizers['moon'].triggerRelease();
-
+        // synthesizers['moon'].triggerRelease();
+        // delete synthesizers['moon'];
       } else {
         // MOON DOES NOT EXIST WITHIN SYNTHESIZERS OBJECT, START AUDIO
         attack('moon', mouseY);
+        // moonAudio();
       }
     }
 
     if (selection.name == 'sunAtmosphere' ) {
-        var kick = new Tone.MembraneSynth({
-          "envelope": {
-            "sustain": Math.floor(Math.random() * 4) + 1,
-            "attack": 0.06,
-            "decay": 0.8
-          },
-          "octaves": 10
-        }).toMaster();
-
+        kick.sustain = Math.floor(Math.random() * 4) + 1;
         kick.triggerAttackRelease(Math.floor(Math.random() * 600) + 250, "9n");
-      
+
 // ROCKET SOUND  new Tone.MembraneSynth({
 // "envelope": {
 // "sustain": 0,
@@ -222,7 +225,8 @@ function onMouseRelease() {
   targetRotationZ = 0;
 
   sunAtmosphere.scale.set(10, 10, 10);
-  delete synthesizers['moon'];
+  // delete synthesizers['moon'];
+  stopFrequency('moon');
 }
 
 
