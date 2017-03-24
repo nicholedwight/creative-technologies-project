@@ -8,6 +8,7 @@ function init() {
     createClouds();
     createEarth();
     createMoon();
+    createAsteroid();
     // createRocket();
     setupAudio();
 
@@ -54,7 +55,7 @@ function render() {
 	}
 
   rotateAroundWorldAxis(parent, new THREE.Vector3(0, 1, 0), targetRotationX);
-  rotateAroundWorldAxis(parent, new THREE.Vector3(1, 0, 0), targetRotationY);
+  // rotateAroundWorldAxis(parent, new THREE.Vector3(1, 0, 0), targetRotationY);
   rotateAroundWorldAxis(group, new THREE.Vector3(0, 0, 1), targetRotationZ);
 
   targetRotationY = targetRotationY;
@@ -102,11 +103,11 @@ function onMouseMove(event) {
 
         mouseX = event.clientX - windowHalfX;
 
-       targetRotationX = ( mouseX - mouseXOnMouseDown ) * 0.00025;
+       targetRotationX = ( mouseX - mouseXOnMouseDown ) * 0.00035;
 
        mouseY = event.clientY - windowHalfY;
 
-       targetRotationY = ( mouseY - mouseYOnMouseDown ) * 0.00025;
+       targetRotationY = ( mouseY - mouseYOnMouseDown ) * 0.00035;
 
        // CHANGES FREQUENCY OF MOON AUDIO BASED ON SCREEN POSITION
        changeFrequency('moon', mouseX, mouseY);
@@ -136,7 +137,7 @@ function onMouseMove(event) {
 
      mouseY = event.clientY - windowHalfY;
      var lastPos = mouseY;
-     targetRotationZ = ( mouseY - mouseYOnMouseDown ) * 0.00025;
+     targetRotationZ = ( mouseY - mouseYOnMouseDown ) * 0.00055;
 
      if (player1 == false) {
        Player[1].start();
@@ -188,15 +189,15 @@ function onMousePress(event) {
     if (selection.name == 'moon') {
 
       // console.log(synthesizers);
-      if (synthesizers['moon']) {
+      // if (synthesizers['moon']) {
         // MOON IS ALREADY PLAYING, STOP AUDIO AND REMOVE FROM SYNTHESIZERS OBJECT
         // synthesizers['moon'].triggerRelease();
         // delete synthesizers['moon'];
-      } else {
+      // } else {
         // MOON DOES NOT EXIST WITHIN SYNTHESIZERS OBJECT, START AUDIO
         attack('moon', mouseY);
         // moonAudio();
-      }
+      // }
     }
 
     if (selection.name == 'sunAtmosphere' ) {
@@ -225,7 +226,6 @@ function onMouseRelease() {
   targetRotationZ = 0;
 
   sunAtmosphere.scale.set(10, 10, 10);
-  // delete synthesizers['moon'];
   stopFrequency('moon');
 }
 

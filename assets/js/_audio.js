@@ -89,10 +89,9 @@ function setupAudio() {
 
 
     Player[0] = new Tone.Player().toMaster();
-    Player[0].load("./assets/loops/ambient.mp3",function(player) {
+    Player[0].load("./assets/loops/space.wav",function(player) {
         player.loopEnd = 3;
         player.loop = true;
-        player.autostart = false;
     });
     Player[0].volume.value = 8;
 

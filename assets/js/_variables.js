@@ -27,6 +27,7 @@ var plangroup;
 var dysonSphere;
 var sun, sun2, sun3, sunAtmosphere, moon;
 var rocket;
+var asteroidArray = [];
 var starsArray = [];
 
 var targetRotation = 0;

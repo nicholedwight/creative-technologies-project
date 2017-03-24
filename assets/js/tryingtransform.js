@@ -10,6 +10,7 @@ function createScene() {
   renderer.setClearColor(0x000000, 0);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.sortObjects = false;
+  renderer.shadowMap.enabled = true;
   container.appendChild(renderer.domElement);
 
   var fov = 35;
@@ -22,6 +23,8 @@ function createScene() {
   scene = new THREE.Scene();
   scene.add(camera);
 
+  var dragControls = new THREE.DragControls( asteroidArray, camera, renderer.domElement );
+
   window.addEventListener('resize', onWindowResize, false);
 }
 
@@ -31,25 +34,43 @@ function createLights() {
 	// A hemisphere light is a gradient colored light;
 	// the first parameter is the sky color, the second parameter is the ground color,
 	// the third parameter is the intensity of the light
-	hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9)
-	shadowLight = new THREE.DirectionalLight(0xffffff, .9);
-	shadowLight.position.set(150, 250, 100);
+	// hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9)
+	// shadowLight = new THREE.DirectionalLight(0xffffff, .9);
+	// shadowLight.position.set(150, 250, 100);
+  //
+	// shadowLight.castShadow = true;
+	// shadowLight.shadow.camera.left = -400;
+	// shadowLight.shadow.camera.right = 400;
+	// shadowLight.shadow.camera.top = 400;
+	// shadowLight.shadow.camera.bottom = -400;
+	// shadowLight.shadow.camera.near = 1;
+	// shadowLight.shadow.camera.far = 1000;
+  //
+	// // define the resolution of the shadow; the higher the better,
+	// // but also the more expensive and less performant
+	// shadowLight.shadow.mapSize.width = 2048;
+	// shadowLight.shadow.mapSize.height = 2048;
+  //
+	// scene.add(hemisphereLight);
+	// scene.add(shadowLight);
 
-	shadowLight.castShadow = true;
-	shadowLight.shadow.camera.left = -400;
-	shadowLight.shadow.camera.right = 400;
-	shadowLight.shadow.camera.top = 400;
-	shadowLight.shadow.camera.bottom = -400;
-	shadowLight.shadow.camera.near = 1;
-	shadowLight.shadow.camera.far = 1000;
+  ambientLight = new THREE.AmbientLight(0x663344,0.3);
+  scene.add(ambientLight);
 
-	// define the resolution of the shadow; the higher the better,
-	// but also the more expensive and less performant
-	shadowLight.shadow.mapSize.width = 2048;
-	shadowLight.shadow.mapSize.height = 2048;
+  light = new THREE.DirectionalLight(0xffffff, 1.5);
+  light.position.set(200,100,200);
+  light.castShadow = true;
+  light.shadow.camera.left = -400;
+  light.shadow.camera.right = 400;
+  light.shadow.camera.top = 400;
+  light.shadow.camera.bottom = -400;
+  light.shadow.camera.near = 1;
+  light.shadow.camera.far = 1000;
+  light.shadow.mapSize.width = 2048;
+  light.shadow.mapSize.height = 2048;
 
-	scene.add(hemisphereLight);
-	scene.add(shadowLight);
+
+  scene.add(light);
 }
 
 
@@ -150,9 +171,6 @@ function createEarth() {
 }
 
 function createMoon() {
-
-    // var geometry = new THREE.SphereGeometry(50, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
-    // var material = new THREE.MeshNormalMaterial();
     var geometry = new THREE.IcosahedronGeometry(50, 1);
     var material = new THREE.MeshPhongMaterial({
       color: 0xffffff,
@@ -164,10 +182,35 @@ function createMoon() {
     pivot.rotation.set(10, 10, 10);
     parent.add(pivot);
     moon = new THREE.Mesh( geometry, material );
+    moon.castShadow = true;
+    moon.receiveShadow = true;
     parent.castShadow = true;
     moon.name = 'moon';
     moon.position.x = 250;
     pivot.add(moon);
+}
+
+function createAsteroid() {
+  var geometry = new THREE.DodecahedronGeometry(30, 1);
+  geometry.vertices.forEach(function(v) {
+    v.x += (0-Math.random()*(35/4));
+    v.y += (0-Math.random()*(35/4));
+    v.z += (0-Math.random()*(35/4));
+  });
+  var color = 0x756363;
+  var material = new THREE.MeshStandardMaterial({
+    color: color,
+    shading: THREE.FlatShading,
+    roughness: 0.8,
+    metalness: 1
+  });
+  var asteroid = new THREE.Mesh(geometry, material);
+  asteroid.castShadow = true;
+  asteroid.receiveShadow = true;
+  asteroid.scale.set(1+Math.random()*0.4,1+Math.random()*0.8,1+Math.random()*0.4);
+  asteroid.position.set(-300, 200, 100);
+  asteroidArray.push(asteroid);
+  scene.add(asteroid);
 }
 
 function createSun() {

@@ -32,7 +32,7 @@ function attack(id, location) {
   // CHOOSING SCALE AT RANDOM BASED ON SCREEN POSITION
   let newIndex = Math.abs(location) % scale.length;
   let newFreq = scale[newIndex];
-
+  console.log(newFreq);
   // // CREATING NEW SYNTH AND DEFINING ITS ID TO BE SELECTION NAME
   var reverb = new Tone.JCReverb(0.25).connect(Tone.Master);
   var newSynth = new Tone.DuoSynth({harmonicity: 1.5}).chain(reverb);
@@ -41,14 +41,14 @@ function attack(id, location) {
 
   newSynth.triggerAttack(newFreq);
   // console.log(synthesizers);
-  if (!synthesizers[id]) {
+  // if (!synthesizers[id]) {
     synthesizers[id] = newSynth;
     // SYNTHESIZER DOES NOT EXIST WITHIN OBJECT, CREATING IT
-  } else {
+  // } else {
     // synthesizers[id].triggerRelease();
     // delete synthesizers[id];
     // SYNTHESIZER EXISTS, DESTROYING SOUND. NOT DOING SO CAUSES OVERLOAD WITH MULTIPLE SOUNDS AND MY COMPUTER DOESN'T OUTPUT ANYTHING BUT CRACKLE/STATIC
-  }
+  // }
 }
 
 function stopFrequency(id) {
@@ -58,7 +58,7 @@ function stopFrequency(id) {
 function changeFrequency(id, location, yLocation) {
   // CHOOSING A NEW SCALE BASED ON NEW POSITION FROM DRAG
   let newIndex = Math.abs(yLocation - window.innerWidth) % scale.length;
-  console.log(newIndex);
+  // console.log(newIndex);
   let newFreq = scale[newIndex]
 
   // GRABBING SYNTHESIZER DEFINED IN ATTACK BASED ON ID = MOON
