@@ -86,7 +86,7 @@ var wanderSynth2Schedule
 
 function droneStart() {
 	drone1.triggerAttack("F2")
-	drone2.triggerAttack('C3', "2m")
+	// drone2.triggerAttack('C3', "2m")
 
 	wanderSynthSchedule = Tone.Transport.scheduleRepeat(function(time){
   if (Math.random() < 0.07){
@@ -95,12 +95,12 @@ function droneStart() {
   }
 }, "8n", "3m");
 
-	wanderSynth2Schedule = Tone.Transport.scheduleRepeat(function(time){
-  if (Math.random() < 0.1){
-    var nextNote = scale2[Math.floor(Math.random() * (scale2.length - 1))]
-    wanderSynth2.triggerAttack(nextNote)
-  }
-}, "8n", "4m");
+// 	wanderSynth2Schedule = Tone.Transport.scheduleRepeat(function(time){
+//   if (Math.random() < 0.1){
+//     var nextNote = scale2[Math.floor(Math.random() * (scale2.length - 1))]
+//     wanderSynth2.triggerAttack(nextNote)
+//   }
+// }, "8n", "4m");
 
 	Tone.Transport.bpm.value = 72;
 	Tone.Transport.start("+0.1")

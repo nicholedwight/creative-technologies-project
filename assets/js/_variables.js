@@ -21,6 +21,7 @@ var offset = new THREE.Vector3();
 var control, controlY;
 var group, cloudPivot;
 var x, y;
+var player0 = false;
 var player1 = false;
 var player2 = false;
 var plangroup;

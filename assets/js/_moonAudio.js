@@ -1,27 +1,8 @@
 // DEFINING AN ARRAY OF SCALES TO CHOOSE FROM
 var scale = [
-  "F3", // ok low tone
-  "G3", // low tone
-  "A3",
-  "Bb3",
-  "C4",
-  "D4",
-  "Eb4",
-  "F4",
-  "G4",
-  "A4",
-  "Bb4",
-  "C5",
-  "D5",
-  "Eb5",
-  "F5",
-  "G5",
-  "A5",
-  "Bb5",
-  "C6",
-  "D6",
-  "Eb6",
-  "F6"
+  "F3", "G3", "A3", "Bb3", "C4", "D4", "Eb4", "F4",
+  "G4", "A4", "Bb4", "C5", "D5", "Eb5", "F5", "G5",
+  "A5", "Bb5", "C6", "D6", "Eb6", "F6"
 ]
 
 // SETTING UP OBJECT THAT WILL HOUSE ALL SYNTHESIZERS
@@ -39,7 +20,7 @@ function attack(id, location) {
   newSynth[id] = id;
   newSynth.volume.value = 0.1;
 
-  newSynth.triggerAttack(newFreq);
+  newSynth.triggerAttack(newFreq, '+0.05');
   // console.log(synthesizers);
   // if (!synthesizers[id]) {
     synthesizers[id] = newSynth;
@@ -52,6 +33,7 @@ function attack(id, location) {
 }
 
 function stopFrequency(id) {
+  // STOPS AUDIO FROM GIVEN SYNTHESIZER
   synthesizers[id].triggerRelease();
 }
 
