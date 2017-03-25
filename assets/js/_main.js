@@ -21,10 +21,7 @@ function render() {
 
   // IF MOUSE IS HOVERING OVER AN INTERSECTED OBJECT, IT IS INTERACTABLE
 	if (intersects.length > 0) {
-		// if (INTERSECTED != intersects[0].object) {
-		// 	if (INTERSECTED) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-    //   selection = intersects[0].object;
-		// }
+    selection = intersects[0].object;
     pointer = true;
     interactable = true;
     container.style.cursor="pointer";
@@ -61,7 +58,7 @@ function onWindowLoaded() {
   targetRotationX = 0;
   targetRotationZ = 0;
   // STARTING AMBIENT MUSIC
-  droneStart();
+  // droneStart();
 }
 
 function onWindowResize() {
