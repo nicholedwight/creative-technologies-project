@@ -1,0 +1,263 @@
+{
+    "accessors": {
+        "accessor_21": {
+            "bufferView": "bufferView_29",
+            "byteOffset": 0,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 35640,
+            "max": [
+                17819
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_23": {
+            "bufferView": "bufferView_30",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "componentType": 5126,
+            "count": 35640,
+            "max": [
+                15.6697,
+                10.9282,
+                11.3611
+            ],
+            "min": [
+                -23.3839,
+                -12.2407,
+                -13.3332
+            ],
+            "type": "VEC3"
+        },
+        "accessor_25": {
+            "bufferView": "bufferView_30",
+            "byteOffset": 427680,
+            "byteStride": 12,
+            "componentType": 5126,
+            "count": 35640,
+            "max": [
+                0.999714,
+                0.999786,
+                0.999941
+            ],
+            "min": [
+                -0.998408,
+                -0.999707,
+                -0.999914
+            ],
+            "type": "VEC3"
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@6779c094d694e951beeb1012d03d4faa1edb0ddf",
+        "premultipliedAlpha": true,
+        "profile": {
+            "api": "WebGL",
+            "version": "1.0.2"
+        },
+        "version": "1.0.1"
+    },
+    "bufferViews": {
+        "bufferView_29": {
+            "buffer": "asteroid",
+            "byteLength": 71280,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_30": {
+            "buffer": "asteroid",
+            "byteLength": 855360,
+            "byteOffset": 71280,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "asteroid": {
+            "byteLength": 926640,
+            "type": "arraybuffer",
+            "uri": "asteroid.bin"
+        }
+    },
+    "cameras": {
+        "Camera-camera": {
+            "name": "Camera",
+            "perspective": {
+                "aspectRatio": 1.77778,
+                "yfov": 0.482375,
+                "zfar": 100,
+                "znear": 0.1
+            },
+            "type": "perspective"
+        }
+    },
+    "extensions": {
+        "KHR_materials_common": {
+            "lights": {
+                "directionalLightShape1-lib": {
+                    "directional": {
+                        "color": [
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "name": "directionalLightShape1",
+                    "type": "directional"
+                }
+            }
+        }
+    },
+    "extensionsUsed": [
+        "KHR_materials_common"
+    ],
+    "images": {
+        "file2": {
+            "name": "file2",
+            "uri": "asteroid.jpg"
+        }
+    },
+    "materials": {
+        "asteroid-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.231373,
+                            0.231373,
+                            0.231373,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 1,
+                        "specular": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "asteroid"
+        }
+    },
+    "meshes": {
+        "Sphere01-mesh": {
+            "name": "Sphere01",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_25",
+                        "POSITION": "accessor_23"
+                    },
+                    "indices": "accessor_21",
+                    "material": "asteroid-effect",
+                    "mode": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "Camera": {
+            "camera": "Camera-camera",
+            "children": [],
+            "matrix": [
+                0.685921,
+                0.727676,
+                0,
+                0,
+                -0.324014,
+                0.305421,
+                0.895396,
+                0,
+                0.651558,
+                -0.61417,
+                0.445271,
+                0,
+                7.48113,
+                -6.50764,
+                5.34367,
+                1
+            ],
+            "name": "Camera"
+        },
+        "Sphere01": {
+            "children": [],
+            "matrix": [
+                0.1,
+                0,
+                0,
+                0,
+                0,
+                -1.62921e-08,
+                0.1,
+                0,
+                0,
+                -0.1,
+                -1.62921e-08,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "Sphere01-mesh"
+            ],
+            "name": "Sphere01"
+        },
+        "node_2": {
+            "children": [
+                "Camera",
+                "Sphere01"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "Y_UP_Transform"
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_2"
+            ]
+        }
+    },
+    "skins": {}
+}

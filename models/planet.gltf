@@ -1,0 +1,484 @@
+{
+    "accessors": {
+        "accessor_76": {
+            "bufferView": "bufferView_97",
+            "byteOffset": 0,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 12,
+            "max": [
+                5
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_79": {
+            "bufferView": "bufferView_97",
+            "byteOffset": 24,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 5772,
+            "max": [
+                2897
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_82": {
+            "bufferView": "bufferView_97",
+            "byteOffset": 11568,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 144,
+            "max": [
+                5851
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_85": {
+            "bufferView": "bufferView_97",
+            "byteOffset": 11856,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 549,
+            "max": [
+                6198
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_88": {
+            "bufferView": "bufferView_97",
+            "byteOffset": 12954,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 90,
+            "max": [
+                6517
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_91": {
+            "bufferView": "bufferView_97",
+            "byteOffset": 13134,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 2628,
+            "max": [
+                7876
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_93": {
+            "bufferView": "bufferView_98",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "componentType": 5126,
+            "count": 9191,
+            "max": [
+                303.912,
+                322.88,
+                326.22
+            ],
+            "min": [
+                -346.144,
+                -313.428,
+                -307.6
+            ],
+            "type": "VEC3"
+        },
+        "accessor_95": {
+            "bufferView": "bufferView_98",
+            "byteOffset": 110292,
+            "byteStride": 12,
+            "componentType": 5126,
+            "count": 9191,
+            "max": [
+                0.997265,
+                0.998129,
+                1
+            ],
+            "min": [
+                -0.998601,
+                -0.999264,
+                -0.999045
+            ],
+            "type": "VEC3"
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@6779c094d694e951beeb1012d03d4faa1edb0ddf",
+        "premultipliedAlpha": true,
+        "profile": {
+            "api": "WebGL",
+            "version": "1.0.2"
+        },
+        "version": "1.0.1"
+    },
+    "bufferViews": {
+        "bufferView_97": {
+            "buffer": "planet",
+            "byteLength": 18392,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_98": {
+            "buffer": "planet",
+            "byteLength": 220584,
+            "byteOffset": 18392,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "planet": {
+            "byteLength": 238976,
+            "type": "arraybuffer",
+            "uri": "planet.bin"
+        }
+    },
+    "extensionsUsed": [
+        "KHR_materials_common"
+    ],
+    "materials": {
+        "planet_crystals-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.557647,
+                            0.218824,
+                            0.9,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 148,
+                        "specular": [
+                            0.8,
+                            0.8,
+                            0.8,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "planet_crystals"
+        },
+        "planet_green-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.243504,
+                            0.436649,
+                            0.255483,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 68,
+                        "specular": [
+                            0.02,
+                            0.02,
+                            0.02,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "planet_green"
+        },
+        "planet_roads-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.164706,
+                            0.164706,
+                            0.164706,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 35,
+                        "specular": [
+                            0.025,
+                            0.025,
+                            0.025,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "planet_roads"
+        },
+        "planet_rock-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.666667,
+                            0.662745,
+                            0.65098,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "planet_rock"
+        },
+        "planet_snow-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.877828,
+                            0.948471,
+                            0.943556,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 68,
+                        "specular": [
+                            0.02,
+                            0.02,
+                            0.02,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "planet_snow"
+        },
+        "planet_water-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0,
+                            0.738958,
+                            0.950959,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 68,
+                        "specular": [
+                            0.7,
+                            0.7,
+                            0.7,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "planet_water"
+        }
+    },
+    "meshes": {
+        "planet5-mesh": {
+            "name": "planet5",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_95",
+                        "POSITION": "accessor_93"
+                    },
+                    "indices": "accessor_76",
+                    "material": "planet_crystals-effect",
+                    "mode": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_95",
+                        "POSITION": "accessor_93"
+                    },
+                    "indices": "accessor_79",
+                    "material": "planet_green-effect",
+                    "mode": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_95",
+                        "POSITION": "accessor_93"
+                    },
+                    "indices": "accessor_82",
+                    "material": "planet_roads-effect",
+                    "mode": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_95",
+                        "POSITION": "accessor_93"
+                    },
+                    "indices": "accessor_85",
+                    "material": "planet_rock-effect",
+                    "mode": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_95",
+                        "POSITION": "accessor_93"
+                    },
+                    "indices": "accessor_88",
+                    "material": "planet_snow-effect",
+                    "mode": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_95",
+                        "POSITION": "accessor_93"
+                    },
+                    "indices": "accessor_91",
+                    "material": "planet_water-effect",
+                    "mode": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node_1": {
+            "children": [
+                "planet5"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "Y_UP_Transform"
+        },
+        "planet5": {
+            "children": [],
+            "meshes": [
+                "planet5-mesh"
+            ],
+            "name": "planet5"
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_1"
+            ]
+        }
+    },
+    "skins": {}
+}

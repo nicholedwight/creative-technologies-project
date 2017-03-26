@@ -14,36 +14,6 @@ function createStars() {
     }
 }
 
-function createGround() {
-  var planeMaterial = new THREE.MeshPhongMaterial({
-    specular: 0xfb8717,
-    color: 0xFF4E50,
-    emissive: 0xFF4E50,
-    shininess: 30,
-    shading: THREE.FlatShading
-  });
-
-  widthSegs = 75, heightSegs = 35;
-
-  groundGeometry = new THREE.SphereGeometry( 90, widthSegs, heightSegs );
-
-  var knead = function( vertices, amplitude ) {
-    for ( var i = 0; i < vertices.length; i++ ) {
-      if ( i % ( widthSegs + 1 ) == 0 )
-        vertices[i] = vertices[i + widthSegs];
-      else
-        vertices[i][["x", "y", "z"][~~( Math.random() * 3 )]] += Math.random() * amplitude;
-    }
-  };
-
-  knead(groundGeometry.vertices, 10);
-  ground = new THREE.Mesh(groundGeometry, planeMaterial);
-  ground.name = "ground";
-  ground.position.set(0, -98, 950);
-  ground.rotateX(2);
-  scene.add(ground);
-}
-
 function createEarth() {
   // CODE FOR CREATING EARTH WAS ADAPTED FROM SAM SACCONE AT: http://codepen.io/s/details/kAcDI
   // ANOTHER METHOD OF DOING THIS IS TO USE NOISE, THIS METHOD WAS USED WHEN CREATING THE ASTEROID
@@ -91,6 +61,37 @@ function createEarth() {
   base.add( terrain );
   base.add( terrainHeight );
 
+}
+
+function createGround() {
+  var planeMaterial = new THREE.MeshPhongMaterial({
+    specular: 0xfb8717,
+    color: 0xFF4E50,
+    emissive: 0xFF4E50,
+    shininess: 30,
+    shading: THREE.FlatShading
+  });
+
+  widthSegs = 75, heightSegs = 35;
+
+  groundGeometry = new THREE.SphereGeometry( 90, widthSegs, heightSegs );
+
+  // USES SAME METHOD FOR KNEADING TOGETHER VERTICES AS CREATEEARTH FUNCTION
+  var knead = function( vertices, amplitude ) {
+    for ( var i = 0; i < vertices.length; i++ ) {
+      if ( i % ( widthSegs + 1 ) == 0 )
+        vertices[i] = vertices[i + widthSegs];
+      else
+        vertices[i][["x", "y", "z"][~~( Math.random() * 3 )]] += Math.random() * amplitude;
+    }
+  };
+
+  knead(groundGeometry.vertices, 10);
+  ground = new THREE.Mesh(groundGeometry, planeMaterial);
+  ground.name = "ground";
+  ground.position.set(0, -98, 950);
+  ground.rotateX(2);
+  scene.add(ground);
 }
 
 function createMoon() {

@@ -1,0 +1,204 @@
+{
+    "accessors": {
+        "accessor_16": {
+            "bufferView": "bufferView_22",
+            "byteOffset": 0,
+            "byteStride": 2,
+            "componentType": 5123,
+            "count": 3840,
+            "max": [
+                1919
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        "accessor_18": {
+            "bufferView": "bufferView_23",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "componentType": 5126,
+            "count": 3840,
+            "max": [
+                2.20104,
+                2.21184,
+                2.02511
+            ],
+            "min": [
+                -1.98727,
+                -2.3017,
+                -2.14342
+            ],
+            "type": "VEC3"
+        },
+        "accessor_20": {
+            "bufferView": "bufferView_23",
+            "byteOffset": 46080,
+            "byteStride": 12,
+            "componentType": 5126,
+            "count": 3840,
+            "max": [
+                0.99896,
+                0.99974,
+                0.999011
+            ],
+            "min": [
+                -0.999566,
+                -0.99992,
+                -0.995483
+            ],
+            "type": "VEC3"
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@6779c094d694e951beeb1012d03d4faa1edb0ddf",
+        "premultipliedAlpha": true,
+        "profile": {
+            "api": "WebGL",
+            "version": "1.0.2"
+        },
+        "version": "1.0.1"
+    },
+    "bufferViews": {
+        "bufferView_22": {
+            "buffer": "ground",
+            "byteLength": 7680,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_23": {
+            "buffer": "ground",
+            "byteLength": 92160,
+            "byteOffset": 7680,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "ground": {
+            "byteLength": 99840,
+            "type": "arraybuffer",
+            "uri": "ground.bin"
+        }
+    },
+    "extensionsUsed": [
+        "KHR_materials_common"
+    ],
+    "materials": {
+        "Material_001-effect": {
+            "extensions": {
+                "KHR_materials_common": {
+                    "doubleSided": false,
+                    "jointCount": 0,
+                    "technique": "PHONG",
+                    "transparent": false,
+                    "values": {
+                        "ambient": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "diffuse": [
+                            0.64,
+                            0.399057,
+                            0.598333,
+                            1
+                        ],
+                        "emission": [
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "shininess": 50,
+                        "specular": [
+                            0.5,
+                            0.5,
+                            0.5,
+                            1
+                        ]
+                    }
+                }
+            },
+            "name": "Material_001"
+        }
+    },
+    "meshes": {
+        "Icosphere-mesh": {
+            "name": "Icosphere",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_20",
+                        "POSITION": "accessor_18"
+                    },
+                    "indices": "accessor_16",
+                    "material": "Material_001-effect",
+                    "mode": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "Icosphere": {
+            "children": [],
+            "matrix": [
+                7.16391,
+                -0.14103,
+                -0.110309,
+                0,
+                0.137009,
+                7.16024,
+                -0.256451,
+                0,
+                0.115266,
+                0.254263,
+                7.1607,
+                0,
+                0.428301,
+                0.753181,
+                -0.175668,
+                1
+            ],
+            "meshes": [
+                "Icosphere-mesh"
+            ],
+            "name": "Icosphere"
+        },
+        "node_1": {
+            "children": [
+                "Icosphere"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "Y_UP_Transform"
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_1"
+            ]
+        }
+    },
+    "skins": {}
+}
