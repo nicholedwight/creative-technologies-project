@@ -1,0 +1,44 @@
+Native Three:
+54.06666666666667
+Load time: 1.13 seconds.
+55.233333333333334
+Load time: 1.12 seconds.
+56.4
+Load time: 1.17 seconds.
+57.233333333333334
+Load time: 1.15 seconds.
+52.4
+Load time: 1.23 seconds.
+53.8
+Load time: 1.15 seconds.
+56.5
+Load time: 1.27 seconds.
+55.3
+Load time: 1.12 seconds.
+55.8
+Load time: 1.14 seconds.
+56.733333333333334
+Load time: 1.28 seconds.
+
+
+Blender:
+56.63333333333333
+Load time: 0.22 seconds.
+56.03333333333333
+Load time: 0.25 seconds.
+53.53333333333333
+Load time: 0.24 seconds.
+48.13333333333333
+Load time: 0.28 seconds.
+54.8
+Load time: 0.30 seconds.
+53.766666666666666
+Load time: 0.64 seconds.
+55.766666666666666
+Load time: 0.25 seconds.
+54.233333333333334
+Load time: 0.26 seconds.
+53.53333333333333
+Load time: 0.26 seconds.
+52.6
+Load time: 0.26 seconds.

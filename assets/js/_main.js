@@ -1,5 +1,4 @@
 function animate() {
-  requestAnimationFrame(animate);
   var timer = 0.00001 * Date.now();
   for (var i = 0, il = starsArray.length; i < il; i++) {
        var star = starsArray[i];
@@ -11,13 +10,37 @@ function animate() {
   sun3.rotation.z += 0.009;
   sunAtmosphere.rotation.x += 0.0005;
   sunAtmosphere.rotation.y += 0.0005;
+  // framecount ++;
+  // stats.begin();
   render();
+  // stats.end();
+
+  // Commented but used for benchmarking
+  // var nowTime = performance.now();
+	// var elapseSeconds = nowTime - startTime;
+	// if (elapseSeconds >= 1000) {
+	// 	// console.log(framecount);
+	// 	if (fps.length <= 29) {
+	// 		fps.push(framecount);
+	// 	}
+  //
+	// 	if (fps.length == 30) {
+	// 		console.log(fps);
+	// 		let sum = fps.reduce((previous, current) => current += previous);
+	// 		let avg = sum / fps.length;
+	// 		console.log("avg is " + avg);
+	// 	}
+	// 	startTime = nowTime;
+	// 	framecount = 0;
+	// }
+
+  requestAnimationFrame(animate);
 }
 
 function render() {
   raycaster.setFromCamera( mouse, camera );
   // SCENE.CHILDREN IS USED TO DETERMINE WHICH OBJECTS SHOULD BE INTERACTABLE, I COULD'VE PUSHED SPECIFIC MODELS TO AN ARRAY AND USED THAT INSTEAD, WHICH WOULD LEAVE OTHER MODELS ACTING AS NOT INTERACTIVE
-  intersects = raycaster.intersectObjects(scene.children, true);
+  intersects = raycaster.intersectObjects(interactableObjects, true);
 
   // IF MOUSE IS HOVERING OVER AN INTERSECTED OBJECT, IT IS INTERACTABLE
 	if (intersects.length > 0) {
@@ -32,8 +55,7 @@ function render() {
 	}
 
   // THESE ARE USED FOR THE CLOUD(GROUP) AND MOON(PARENT) MODELS TO ROTATE AROUND THE PLANET, THIS CODE WAS BASED OFF OF: NICHOLE NEED REFERENCE HERE
-  rotateAroundWorldAxis(parent, new THREE.Vector3(0, 1, 0), targetRotationX);
-  // rotateAroundWorldAxis(parent, new THREE.Vector3(1, 0, 0), targetRotationY);
+  parent.rotation.y += ( targetRotationX - parent.rotation.y ) * 0.05;
   rotateAroundWorldAxis(group, new THREE.Vector3(0, 0, 1), targetRotationZ);
 
   targetRotationY = targetRotationY;
@@ -87,17 +109,22 @@ function onMousePress(event) {
 
   // CLICKING ON AN INTERACTABLE OBJECT
   if (interactable && mouseIsDown == true) {
-
     // MOUSE CLICK ON MOON
     if (selection.name == 'moon') {
       // MOON DOES NOT EXIST WITHIN SYNTHESIZERS OBJECT, START AUDIO (_MOONAUDIO.JS)
-      attack('moon', mouseY);
+      if (synthesizers['moon']) {
+        console.log('moon is already playing');
+      } else {
+        attack('moon', mouseY);
+      }
     }
 
     if (selection.name == 'sunAtmosphere' ) {
         kick.sustain = Math.floor(Math.random() * 4) + 1;
-        kick.triggerAttackRelease(Math.floor(Math.random() * 600) + 250, "9n", '+0.05');
-
+        kick.triggerAttackRelease(Math.floor(Math.random() * 600) + 250, "9n");
+        setTimeout(function () {
+             kick.dispose();
+         }, 2000);
       // ROCKET SOUND  new Tone.MembraneSynth({
       // "envelope": {
       // "sustain": 0,
@@ -126,9 +153,8 @@ function onMouseMove(event) {
     if (selection.name == 'moon') {
       // DETERMINING TARGETROTATIONS FOR THE MOON TO MOVE AROUND PLANET
       mouseX = event.clientX - windowHalfX;
-      targetRotationX = ( mouseX - mouseXOnMouseDown ) * 0.00035;
+      targetRotationX = ( mouseX - mouseXOnMouseDown ) * 0.007;
       mouseY = event.clientY - windowHalfY;
-      targetRotationY = ( mouseY - mouseYOnMouseDown ) * 0.00035;
 
       // CHANGES FREQUENCY OF MOON AUDIO BASED ON SCREEN POSITION
       changeFrequency('moon', mouseX, mouseY);
@@ -164,8 +190,8 @@ function onMouseMove(event) {
        player1 = true;
      }
      // CHANGING VOLUME TO MATCH X POSITION WITHIN SCENE
-     Player[1].volume.rampTo(event.clientX / 70);
-
+     Player[1].volume.rampTo(group.rotation.z * 3);
+     console.log(group.rotation.z * 3);
     }
 
     // MOUSE DRAG ON ASTEROID
@@ -188,14 +214,18 @@ function onMouseRelease() {
   mouseIsDown = false;
   interactable = false;
   targetRotationY = 0;
-  targetRotationX = 0;
   targetRotationZ = 0;
-
   // RESETTING SUN ATMOSPHERE SIZE ON MOUSE UP
   sunAtmosphere.scale.set(10, 10, 10);
-  // THIS COULD BE BETTER, CREATES CONSOLE ERRORS ON EVERY MOUSE UP IF USER DIDN'T HAPPEN TO MOUSE RELEASE ON MOON OBJECT. BUT IT TRIGGERS RELEASE ON MOON'S AUDIO SO IT DOESN'T CREATE A NEVERENDING ANNOYING PITCH
-  stopFrequency('moon');
+  // TRIGGERS RELEASE ON MOON'S AUDIO SO IT DOESN'T CREATE A NEVERENDING ANNOYING PITCH
+  if (synthesizers['moon']) {
+    stopFrequency('moon');
+  }
+  Tone.Transport.pause();
 }
 
+function onMouseOver() {
+  container.style.cursor="pointer";
+}
 
 window.addEventListener('load', onWindowLoaded, false);

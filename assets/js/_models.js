@@ -1,12 +1,11 @@
 // MODELS
 
 function createStars() {
-  var geoSphere = new THREE.SphereGeometry(Math.random() * 1, 20, 20);
-    for (var i = 0; i < 500; i++) {
+    for (var i = 0; i < 100; i++) {
         starMat = new THREE.MeshPhongMaterial({
             emissive: '#fff'
         });
-        starsArray.push(new THREE.Mesh(new THREE.SphereGeometry(Math.random() * 1, 20, 20), starMat));
+        starsArray.push(new THREE.Mesh(new THREE.SphereGeometry(Math.random() * 2, 20, 20), starMat));
     }
     for (var i = 0; i < starsArray.length; i++) {
         starsArray[i].position.set(Math.random() * 1200 - 600, Math.random() * 800 - 400, Math.random() * 300 - 400);
@@ -113,6 +112,7 @@ function createMoon() {
     moon.name = 'moon';
     moon.position.x = 250;
     pivot.add(moon);
+    interactableObjects.push(moon);
 }
 
 function createAsteroid() {
@@ -136,6 +136,7 @@ function createAsteroid() {
   asteroid.position.set(-300, 200, 100);
   asteroid.name = 'asteroid';
   asteroidArray.push(asteroid);
+  interactableObjects.push(asteroid);
   scene.add(asteroid);
 }
 
@@ -179,7 +180,7 @@ function createSun() {
 
   var sunAtmosGeo = new THREE.IcosahedronGeometry(13, 1);
   var sunAtmosMat = new THREE.MeshPhongMaterial({
-    olor: 0xF66120,
+    color: 0xF66120,
     emissive: 0xF66120,
     specular: 0xFFED22,
     shininess: 10,
@@ -190,6 +191,7 @@ function createSun() {
   sunAtmosphere.position.set(450, 250, 0);
   sunAtmosphere.scale.set(10, 10, 10);
   sunAtmosphere.name = 'sunAtmosphere';
+  interactableObjects.push(sunAtmosphere);
   scene.add(sunAtmosphere);
 }
 
@@ -221,11 +223,11 @@ function createClouds() {
 
   var cloudPivot = new THREE.Object3D();
   cloudPivot.name = 'CloudGroup';
-  cloudPivot.rotation.set(10, 10, 10);
+  cloudPivot.rotation.set(0, 0, 0);
   cloudPivot.position.set(50, 40, 30);
   group.add(cloudPivot);
   cloudPivot.add(fluff, fluff2, fluff3);
-
+  interactableObjects.push(fluff, fluff2, fluff3);
   scene.add(group);
 }
 

@@ -1,5 +1,7 @@
 function init() {
-    canvasA = document.getElementById("container");
+    // Commented but used for benchmarking
+    // var loadStartTime = Date.now();
+    // var status = document.getElementById("status");
     createScene();
     createLights();
 
@@ -8,6 +10,8 @@ function init() {
     createClouds();
     createEarth();
     createMoon();
+    createStars();
+    // blenderMoon();
     createAsteroid();
     // createRocket();
     setupAudio();
@@ -15,9 +19,13 @@ function init() {
     document.addEventListener( 'mousemove', onMouseMove, false );
     document.addEventListener( 'mousedown', onMousePress, false );
     document.addEventListener( 'mouseup', onMouseRelease, false );
+    document.addEventListener( 'mouseover', onMouseOver, false );
 
     animate();
-
+    // Commented but used for benchmarking
+    // var loadEndTime = Date.now();
+		// var loadTime = (loadEndTime - loadStartTime) / 1000;
+		// status.innerHTML = "Load time: " + loadTime.toFixed(2) + " seconds.";
 }
 
 function createScene() {

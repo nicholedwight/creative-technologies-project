@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Aria Odyssey</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		body {
+			font-family: Monospace;
+			background-color: rgba(25,31,35,1);
+			margin: 0px;
+			overflow: hidden;
+		}
+		.btn {
+		  display: inline-block;
+		  vertical-align: top;
+		  padding: 8px 14px 10px;
+		  margin-top: 1px;
+		  margin-bottom: 25px;
+		  border: 1px solid;
+		  color: white;
+		  border-radius: 9px;
+		  font-size: 18px;
+		  font-weight: 300;
+		  text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+
+  <div id="container"></div>
+	<!-- <div id="status"></div> -->
+
+  <script type="x-shader/x-vertex" id="vertexShader">
+  	varying vec2 vUv;
+
+  	void main() {
+
+  		vUv = uv;
+  		gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+  	}
+  </script>
+  <script type="x-shader/x-vertex" id="fragmentShader">
+  	varying vec2 vUv;
+
+  	void main() {
+
+  		// colour is RGBA: u, v, 0, 1
+  		gl_FragColor = vec4( vec3( vUv, 0.541 ), 1 );
+
+  	}
+
+  </script>
+
+  <!-- Include vendor scripts -->
+  <script type="text/javascript" src="assets/js/three.min.js"></script>
+	<script type="text/javascript" src="assets/js/Tone.min.js"></script>
+  <script type="text/javascript" src="assets/js/stats.min.js"></script>
+
+	<!-- Renderer scripts -->
+	<script type="text/javascript" src="assets/js/renderers/CanvasRenderer.js"></script>
+
+	<!-- Vendor control scripts -->
+  <script type="text/javascript" src="assets/js/controls/DragControls.js"></script>
+
+	<!-- Loader scripts -->
+	<script type="text/javascript" src="assets/js/loaders/GLTFLoader.js"></script>
+	<!-- Commeented but used for benchmarking -->
+	<!-- <script type="text/javascript">
+		var startTime = performance.now();
+		var framecount = 0;
+		var fps = [];
+	</script> -->
+	<script type="text/javascript" src="assets/js/_variables.js"></script>
+	<script type="text/javascript" src="assets/js/_audio.js"></script>
+	<script type="text/javascript" src="assets/js/_ambientAudio.js"></script>
+	<script type="text/javascript" src="assets/js/_moonAudio.js"></script>
+	<script type="text/javascript" src="assets/js/_models.js"></script>
+	<script type="text/javascript" src="assets/js/_scene.js"></script>
+	<script type="text/javascript" src="assets/js/_main.js"></script>
+	<!-- Commeented but used for benchmarking -->
+	<!-- <script type="text/javascript">
+	var stats = new Stats();
+	container.appendChild(stats.domElement);
+	</script> -->
+
+  <noscript>
+    <p>You need javascript enabled in order to use this web application.</p>
+  </noscript>
+</body>
+</html>

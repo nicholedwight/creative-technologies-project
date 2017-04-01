@@ -11,23 +11,16 @@ var Colors = {
 
 // VARIABLES
 var container = document.getElementById('container');
-var canvas = document.getElementsByTagName('canvas');
-var scene, renderer, camera, controls, control, raycaster;
+var scene, renderer, camera, controls, control, raycaster, stats;
 var mouse = new THREE.Vector2(), INTERSECTED;
 var mouseIsDown = false;
 var selection = null;
-var intersects, groupIntersects;
-var offset = new THREE.Vector3();
-var control, controlY;
 var group, cloudPivot;
 var x, y;
 var player0 = false;
 var player1 = false;
 var player2 = false;
-var plangroup;
-var dysonSphere;
 var sun, sun2, sun3, sunAtmosphere, moon;
-var rocket;
 var asteroidArray = [];
 var starsArray = [];
 
@@ -55,37 +48,19 @@ var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 var parent;
 var cube, cubePivot;
-// var MasterObject, World3D;
-// var ControllerList = [];
-// var controllers = [];
-// var floatTweens = [];
-// var fullX = 0;
-// var fullY = 0;
-// var units = 0;
-// var mouseX = 0;
-// var mouseY = 0;
-//
-var cxa;
 
-var flickerH = [];
-var flickerX = [];
-var flickerY = [];
-var flickerW = [];
-var flickerCount = 0;
 
-var _plane = new THREE.Plane();
-	var _raycaster = new THREE.Raycaster();
+// var animate, e,
+//         nbSBaseSegX, nbSBaseSegY,
+//         base, terran, terranHigh, gun, barrel,
+//         baseGeom, terranGeom, terranHighGeom, gunGeom,
+//         baseMat, terranMat, terranHighMat, gunMat,
+//         dirLight, ambLight
+//     ;
 
-	var _mouse = new THREE.Vector2();
-	var offset = new THREE.Vector3();
-	var _intersection = new THREE.Vector3();
+var startTime = performance.now();
+var framecount = 0;
 
-	var _selected = null, _hovered = null;
+var fps = [];
 
-var animate, e,
-        nbSBaseSegX, nbSBaseSegY,
-        base, terran, terranHigh, gun, barrel,
-        baseGeom, terranGeom, terranHighGeom, gunGeom,
-        baseMat, terranMat, terranHighMat, gunMat,
-        dirLight, ambLight
-    ;
+var interactableObjects = [];
