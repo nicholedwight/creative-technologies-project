@@ -49,15 +49,6 @@ var windowHalfY = window.innerHeight / 2;
 var parent;
 var cube, cubePivot;
 
-
-// var animate, e,
-//         nbSBaseSegX, nbSBaseSegY,
-//         base, terran, terranHigh, gun, barrel,
-//         baseGeom, terranGeom, terranHighGeom, gunGeom,
-//         baseMat, terranMat, terranHighMat, gunMat,
-//         dirLight, ambLight
-//     ;
-
 var startTime = performance.now();
 var framecount = 0;
 
