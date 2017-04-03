@@ -54,7 +54,7 @@ function render() {
     container.style.cursor="default";
 	}
 
-  // THESE ARE USED FOR THE CLOUD(GROUP) AND MOON(PARENT) MODELS TO ROTATE AROUND THE PLANET, THIS CODE WAS BASED OFF OF: NICHOLE NEED REFERENCE HERE
+  // THESE ARE USED FOR THE CLOUD(GROUP) AND MOON(PARENT) MODELS TO ROTATE AROUND THE PLANET, THIS CODE WAS BASED OFF OF: https://codepen.io/OpherV/pen/YXwwNR
   parent.rotation.y += ( targetRotationX - parent.rotation.y ) * 0.05;
   rotateAroundWorldAxis(group, new THREE.Vector3(0, 0, 1), targetRotationZ);
 
@@ -79,8 +79,6 @@ function onWindowLoaded() {
   targetRotationY = 0;
   targetRotationX = 0;
   targetRotationZ = 0;
-  // STARTING AMBIENT MUSIC
-  // droneStart();
 }
 
 function onWindowResize() {
@@ -120,19 +118,11 @@ function onMousePress(event) {
     }
 
     if (selection.name == 'sunAtmosphere' ) {
-        kick.sustain = Math.floor(Math.random() * 4) + 1;
-        kick.triggerAttackRelease(Math.floor(Math.random() * 600) + 250, "9n");
-        setTimeout(function () {
-             kick.dispose();
-         }, 2000);
-      // ROCKET SOUND  new Tone.MembraneSynth({
-      // "envelope": {
-      // "sustain": 0,
-      // "attack": 0.02,
-      // "decay": 0.8
-      // },
-      // "octaves": 10
-      // }).toMaster();
+      kick.sustain = Math.floor(Math.random() * 4) + 1;
+      kick.triggerAttackRelease(Math.floor(Math.random() * 600) + 250, "9n");
+      setTimeout(function () {
+           kick.dispose();
+       }, 2000);
 
       // ANIMATE SUN ATMOSPHERE ON CLICK
       selection.scale.set(11, 11, 11);
@@ -159,23 +149,6 @@ function onMouseMove(event) {
       // CHANGES FREQUENCY OF MOON AUDIO BASED ON SCREEN POSITION
       changeFrequency('moon', mouseX, mouseY);
     }
-
-    // MOUSE DRAG ON ROCKET
-    if (selection.parent.name == "factory_rocket_01") {
-      mouseX = event.clientX - windowHalfX;
-    	targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown );
-      var max = 0.1; var min = -0.1;
-      targetRotation = ( targetRotation - moon.rotation.y ) * 0.0006;
-      if (targetRotation > max) {
-        targetRotation = max;
-      } else if (targetRotation < min) {
-        targetRotation = min;
-      }
-
-      var vector = new THREE.Vector3(intersects[0].point.sub(offset).x, 30, 0);
-      rocket.position.copy(vector);
-    }
-
 
     // MOUSE DRAG ON CLOUD, BECAUSE INTERSECTED OBJECTS IS SEARCHING THROUGH THE SCENE.CHILDREN, THE CLOUD IS A GROUPED OBJECT SO IT ONLY DETERMINES PARTS OF THE OBJECT, RATHER THAN THE WHOLE
     if (selection.name == 'fluff' || selection.name == 'fluff2' || selection.name == 'fluff3') {

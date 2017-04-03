@@ -230,24 +230,3 @@ function createClouds() {
   interactableObjects.push(fluff, fluff2, fluff3);
   scene.add(group);
 }
-
-
-function createRocket(){
-  var loader = new THREE.GLTFLoader();
-  var url = "rocket.gltf";
-
-	var count = 0;
-    loader.load(url, function (data) {
-				gltf = data;
-				var object = gltf.scene;
-				rocket = object;
-				rocket.position.z = 0;
-				rocket.position.x = -65;
-				rocket.position.y = 30;
-				rocket.dir = 2;
-        rocket.scale.set(2,2,2);
-        rocket.rotation.z = 1.5;
-        rocket.name = "rocket";
-        scene.add(rocket);
-    });
-}

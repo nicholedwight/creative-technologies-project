@@ -11,9 +11,7 @@ function init() {
     createEarth();
     createMoon();
     createStars();
-    // blenderMoon();
     createAsteroid();
-    // createRocket();
     setupAudio();
 
     document.addEventListener( 'mousemove', onMouseMove, false );
